@@ -35,8 +35,10 @@ jobs:
         run: |
           sudo sed -i '$ a deb http://th.archive.ubuntu.com/ubuntu jammy main' /etc/apt/sources.list
           sudo apt-get update && sudo apt-get install -y libc6 libffi-dev libncursesw6 wget unzip
-      - name: Upgrade pip
-        run: python -m pip install pip --upgrade
+      - name: Upgrade pip 
+        run: |
+          du -h
+          python -m pip install pip --upgrade
       - name: Install opencompass dependencies
         run: |
           python -m pip install -r requirements.txt
