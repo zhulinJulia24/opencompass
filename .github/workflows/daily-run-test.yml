@@ -18,8 +18,6 @@ on:
         description: 'regression functions'
         type: string
         default: "['chat','base','cmd']"
-  schedule:
-    - cron:  '56 16 * * *'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
