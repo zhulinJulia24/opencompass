@@ -21,8 +21,6 @@ on:
         description: 'Set branch or tag or commit id. Default is "main"'
         type: string
         default: 'main'
-  schedule:
-    - cron:  '56 22 * * *'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
