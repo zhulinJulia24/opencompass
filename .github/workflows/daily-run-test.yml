@@ -142,37 +142,6 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: my-artifact-${{ github.run_id }}
-      - name: Prepare - create conda env and install torch - cu11
-        if: ${{matrix.cuda_env == 'dsw_cu11'}}
-        run: |
-          . /cpfs01/shared/public/qa-llm-cicd/miniconda3/bin/activate
-          conda create -y --name ${{env.CONDA_ENV}}_${{ matrix.cuda_env }} python=3.10
-          conda activate ${{env.CONDA_ENV}}_${{ matrix.cuda_env }}
-          pip install -r /cpfs01/shared/public/qa-llm-cicd/requirements-cu11.txt --cache-dir ${{env.PIP_CACHE_PATH}}
-          pip install opencompass*.whl --cache-dir ${{env.PIP_CACHE_PATH}}
-          pip install /cpfs01/user/qa-llm-cicd/packages/lmdeploy-0.6.1+cu118-cp310-cp310-manylinux2014_x86_64.whl --cache-dir ${{env.PIP_CACHE_PATH}}
-          pip install /cpfs01/user/qa-llm-cicd/packages/vllm-0.6.1.post1+cu118-cp310-cp310-manylinux1_x86_64.whl --cache-dir ${{env.PIP_CACHE_PATH}}
-          pip uninstall torch torchvision torchaudio -y
-          pip install torch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 --cache-dir ${{env.PIP_CACHE_PATH}} --index-url https://download.pytorch.org/whl/cu118
-          FLASH_ATTENTION_FORCE_BUILD=TRUE pip install /cpfs01/user/qa-llm-cicd/packages/flash_attn-2.6.3+cu118torch2.4cxx11abiFALSE-cp310-cp310-linux_x86_64.whl
-          pip install /cpfs01/user/qa-llm-cicd/packages/xformers-0.0.27.post2+cu118-cp310-cp310-manylinux2014_x86_64.whl --cache-dir ${{env.PIP_CACHE_PATH}}
-          conda info --envs
-          pip list
-      - name: Prepare - create conda env and install torch - cu12
-        if: ${{matrix.cuda_env == 'dsw_cu12'}}
-        run: |
-          . /cpfs01/shared/public/qa-llm-cicd/miniconda3/bin/activate
-          conda create -y --name ${{env.CONDA_ENV}}_${{ matrix.cuda_env }} python=3.10
-          conda activate ${{env.CONDA_ENV}}_${{ matrix.cuda_env }}
-          pip install -r /cpfs01/shared/public/qa-llm-cicd/requirements-cu12.txt --cache-dir ${{env.PIP_CACHE_PATH}}
-          pip install opencompass*.whl --cache-dir ${{env.PIP_CACHE_PATH}}
-          pip install opencompass[lmdeploy] --cache-dir ${{env.PIP_CACHE_PATH}}
-          pip install opencompass[vllm] --cache-dir ${{env.PIP_CACHE_PATH}}
-          pip install torch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 --cache-dir ${{env.PIP_CACHE_PATH}}
-          FLASH_ATTENTION_FORCE_BUILD=TRUE pip install /cpfs01/user/qa-llm-cicd/packages/flash_attn-2.6.3+cu123torch2.4cxx11abiFALSE-cp310-cp310-linux_x86_64.whl
-          pip install /cpfs01/user/qa-llm-cicd/packages/xformers-0.0.27.post2-cp310-cp310-manylinux2014_x86_64.whl --cache-dir ${{env.PIP_CACHE_PATH}}
-          conda info --envs
-          pip list
       - name: Prepare - reinstall lmdeploy - cu12
         if: ${{matrix.cuda_env == 'dsw_cu12' && inputs.build_lmdeploy}}
         uses: actions/download-artifact@v4
@@ -182,7 +151,7 @@ jobs:
         if: ${{matrix.cuda_env == 'dsw_cu12' && inputs.build_lmdeploy}}
         run: |
           . /cpfs01/shared/public/qa-llm-cicd/miniconda3/bin/activate
-          conda activate ${{env.CONDA_ENV}}_${{ matrix.cuda_env }}
+          conda activate test_cu12
           pip install lmdeploy-*.whl --no-deps
       - name: Prepare - prepare data and hf model
         run: |
@@ -192,7 +161,7 @@ jobs:
         if: github.event_name == 'schedule' || matrix.regression_func == 'cmd'
         run: |
           . /cpfs01/shared/public/qa-llm-cicd/miniconda3/bin/activate
-          conda activate ${{env.CONDA_ENV}}_${{ matrix.cuda_env }}
+          conda activate test_cu12
           conda info --envs
           export from_tf=TRUE
           python tools/list_configs.py internlm2_5 mmlu
@@ -212,7 +181,7 @@ jobs:
         if: github.event_name == 'schedule' || matrix.regression_func == 'chat_models'
         run: |
           . /cpfs01/shared/public/qa-llm-cicd/miniconda3/bin/activate
-          conda activate ${{env.CONDA_ENV}}_${{ matrix.cuda_env }}
+          conda activate test_cu12
           conda info --envs
           opencompass .github/scripts/eval_regression_chat.py --work-dir ${{env.REPORT_ROOT}}/${{ github.run_id }}/chat_${{ matrix.cuda_env }} --reuse --max-num-workers 2 --dump-eval-details
           rm regression_result_daily -f && ln -s ${{env.REPORT_ROOT}}/${{ github.run_id }}/chat_${{ matrix.cuda_env }}/*/summary regression_result_daily
@@ -221,7 +190,7 @@ jobs:
         if: github.event_name == 'schedule' || matrix.regression_func == 'base_models'
         run: |
           . /cpfs01/shared/public/qa-llm-cicd/miniconda3/bin/activate
-          conda activate ${{env.CONDA_ENV}}_${{ matrix.cuda_env }}
+          conda activate test_cu12
           conda info --envs
           opencompass .github/scripts/eval_regression_base.py --work-dir ${{env.REPORT_ROOT}}/${{ github.run_id }}/base_${{ matrix.cuda_env }} --reuse --max-num-workers 2 --dump-eval-details
           rm regression_result_daily -f && ln -s ${{env.REPORT_ROOT}}/${{ github.run_id }}/base_${{ matrix.cuda_env }}/*/summary regression_result_daily
@@ -230,7 +199,7 @@ jobs:
         if: github.event_name == 'schedule' || matrix.regression_func == 'chat_obj_fullbench'
         run: |
           . /cpfs01/shared/public/qa-llm-cicd/miniconda3/bin/activate
-          conda activate ${{env.CONDA_ENV}}_${{ matrix.cuda_env }}
+          conda activate test_cu12
           conda info --envs
           opencompass .github/scripts/eval_regression_chat_objective_fullbench.py --work-dir ${{env.REPORT_ROOT}}/${{ github.run_id }}/chat_obj_${{ matrix.cuda_env }} --reuse --max-num-workers 2 --dump-eval-details
           rm regression_result_daily -f && ln -s ${{env.REPORT_ROOT}}/${{ github.run_id }}/chat_obj_${{ matrix.cuda_env }}/*/summary regression_result_daily
@@ -239,7 +208,7 @@ jobs:
         if: github.event_name == 'schedule' || matrix.regression_func == 'chat_sub_fullbench'
         run: |
           . /cpfs01/shared/public/qa-llm-cicd/miniconda3/bin/activate
-          conda activate ${{env.CONDA_ENV}}_${{ matrix.cuda_env }}
+          conda activate test_cu12
           conda info --envs
           lmdeploy serve api_server internlm/internlm2_5-7b-chat --max-batch-size 1 --model-name internlm2 > ${{env.REPORT_ROOT}}/${{ github.run_id }}/chat_sub_${{ matrix.cuda_env }}/restful.log  2>&1  &
           sleep 120s
@@ -250,18 +219,12 @@ jobs:
         if: github.event_name == 'schedule' || matrix.regression_func == 'base_fullbench'
         run: |
           . /cpfs01/shared/public/qa-llm-cicd/miniconda3/bin/activate
-          conda activate ${{env.CONDA_ENV}}_${{ matrix.cuda_env }}
+          conda activate test_cu12
           conda info --envs
           opencompass .github/scripts/eval_regression_base_fullbench.py --work-dir ${{env.REPORT_ROOT}}/${{ github.run_id }}/base_full_${{ matrix.cuda_env }} --reuse --max-num-workers 2 --dump-eval-details
           rm regression_result_daily -f && ln -s ${{env.REPORT_ROOT}}/${{ github.run_id }}/base_full_${{ matrix.cuda_env }}/*/summary regression_result_daily
           python -m pytest -m base_fullbench -s -v --color=yes .github/scripts/oc_score_assert.py
-      - name:  Remove Conda Env
-        if: always()
-        run: |
-          rm -rf regression_result_daily
-          . /cpfs01/shared/public/qa-llm-cicd/miniconda3/bin/activate
-          conda env remove -y --name ${{env.CONDA_ENV}}_${{ matrix.cuda_env }}
-          conda info --envs
+
   notify_to_feishu:
     if: ${{ always() && !cancelled() && contains(needs.*.result, 'failure') && (github.ref_name == 'develop' || github.ref_name == 'main') }}
     needs: [daily_run_test]
