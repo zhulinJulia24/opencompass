@@ -19,7 +19,7 @@ PARTITIONERS = Registry('partitioner', locations=['opencompass.partitioners'])
 RUNNERS = Registry('runner', locations=['opencompass.runners'])
 TASKS = Registry('task', locations=['opencompass.tasks'])
 MODELS = Registry('model', locations=['opencompass.models'])
-# TODO: LOAD_DATASET -> DATASETS
+
 LOAD_DATASET = Registry('load_dataset', locations=['opencompass.datasets'])
 TEXT_POSTPROCESSORS = Registry(
     'text_postprocessors', locations=['opencompass.utils.text_postprocessors'])
