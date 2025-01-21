@@ -29,6 +29,7 @@ from .judgerbench import JudgerBenchEvaluator  # noqa: F401, F403
 from .mtbench import MTBenchDataset, mtbench_postprocess  # noqa: F401, F403
 from .mtbench101 import MTBench101Dataset  # noqa: F401, F403
 from .mtbench101 import mtbench101_postprocess
+from .common_summarize import common_postprocess
 from .multiround import MultiroundDataset  # noqa: F401, F403
 from .subjective_cmp import SubjectiveCmpDataset  # noqa: F401, F403
 from .wildbench import WildBenchDataset  # noqa: F401, F403
