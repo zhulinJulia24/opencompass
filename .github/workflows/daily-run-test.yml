@@ -275,7 +275,7 @@ jobs:
           conda info --envs
           lmdeploy serve api_server internlm/internlm2_5-7b-chat --max-batch-size 256 --model-name internlm2 > ${{env.REPORT_ROOT}}/${{ github.run_id }}/restful.log  2>&1  &
           echo "restful_pid=$!" >> "$GITHUB_ENV"
-          sleep 120s
+          sleep 180s
           opencompass .github/scripts/eval_regression_api.py --work-dir ${{env.REPORT_ROOT}}/${{ github.run_id }}/api --reuse --max-num-workers 2 --dump-eval-details
           rm regression_result_daily -f && ln -s ${{env.REPORT_ROOT}}/${{ github.run_id }}/api/*/summary regression_result_daily
           python -m pytest -m api -s -v --color=yes .github/scripts/oc_score_assert.py

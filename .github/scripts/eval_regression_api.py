@@ -34,7 +34,7 @@ models = [
         max_seq_len=4096,
         temperature=0.01,
         batch_size=128,
-        retry=20,
+        retry=3,
     )
 ]
 
