@@ -1,3 +1,5 @@
+from copy import deepcopy
+
 from mmengine.config import read_base
 
 with read_base():
@@ -118,12 +120,40 @@ with read_base():
 
     from ...volc import infer as volc_infer  # noqa: F401, E501
 
+lmdeploy_glm4_9b_model_pytorch = deepcopy(*lmdeploy_glm4_9b_model)
+lmdeploy_deepseek_7b_base_model_pytorch = deepcopy(
+    *lmdeploy_deepseek_7b_base_model)
+lmdeploy_deepseek_67b_base_model_pytorch = deepcopy(
+    *lmdeploy_deepseek_67b_base_model)
+lmdeploy_deepseek_v2_model_pytorch = deepcopy(*lmdeploy_deepseek_v2_model)
+lmdeploy_gemma_9b_model_pytorch = deepcopy(*lmdeploy_gemma_9b_model)
+lmdeploy_internlm2_5_7b_model_pytorch = deepcopy(
+    *lmdeploy_internlm2_5_7b_model)
+lmdeploy_internlm2_base_7b_model_pytorch = deepcopy(
+    *lmdeploy_internlm2_base_7b_model)
+lmdeploy_llama3_1_8b_model_pytorch = deepcopy(*lmdeploy_llama3_1_8b_model)
+lmdeploy_llama3_70b_model_pytorch = deepcopy(*lmdeploy_llama3_70b_model)
+lmdeploy_qwen2_5_1_5b_model_pytorch = deepcopy(*lmdeploy_qwen2_5_1_5b_model)
+lmdeploy_qwen2_5_32b_model_pytorch = deepcopy(*lmdeploy_qwen2_5_32b_model)
+lmdeploy_qwen2_5_72b_model_pytorch = deepcopy(*lmdeploy_qwen2_5_72b_model)
+
 race_datasets = [race_datasets[1]]
 models = sum([v for k, v in locals().items() if k.endswith('_model')], [])
 datasets = sum([v for k, v in locals().items() if k.endswith('_datasets')], [])
 
 for d in datasets:
     d['reader_cfg']['test_range'] = '[0:32]'
+
+for model in [
+        v for k, v in locals().items()
+        if not k.endswith('_pytorch') and 'lmdeploy' in k
+]:
+    model['backend'] = 'turbomind'
+
+for model in [v for k, v in locals().items() if k.endswith('_pytorch')]:
+    model['abbr'] = model['abbr'].replace('turbomind', 'pytorch').replace(
+        'lmdeploy', 'pytorch')
+    model['backend'] = 'pytorch'
 
 for m in models:
     if 'turbomind' in m['abbr'] or 'lmdeploy' in m['abbr']:

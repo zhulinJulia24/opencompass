@@ -1,3 +1,5 @@
+from copy import deepcopy
+
 from mmengine.config import read_base
 
 with read_base():
@@ -45,6 +47,8 @@ with read_base():
         models as hf_internlm2_5_7b_chat_model  # noqa: F401, E501
     from opencompass.configs.models.hf_internlm.hf_internlm2_5_20b_chat import \
         models as hf_internlm2_5_20b_chat_model  # noqa: F401, E501
+    from opencompass.configs.models.hf_internlm.hf_internlm3_8b_instruct import \
+        models as hf_internlm3_8b_instruct_model  # noqa: F401, E501
     from opencompass.configs.models.hf_internlm.lmdeploy_internlm2_5_7b_chat import \
         models as lmdeploy_internlm2_5_7b_chat_model  # noqa: F401, E501
     from opencompass.configs.models.hf_internlm.lmdeploy_internlm2_5_20b_chat import \
@@ -57,6 +61,8 @@ with read_base():
         models as lmdeploy_internlm2_chat_7b_model  # noqa: F401, E501
     from opencompass.configs.models.hf_internlm.lmdeploy_internlm2_chat_7b_sft import \
         models as lmdeploy_internlm2_chat_7b_sft_model  # noqa: F401, E501
+    from opencompass.configs.models.hf_internlm.lmdeploy_internlm3_8b_instruct import \
+        models as lmdeploy_internlm3_8b_instruct_model  # noqa: F401, E501
     from opencompass.configs.models.hf_internlm.vllm_internlm2_chat_7b import \
         models as vllm_internlm2_chat_7b_model  # noqa: F401, E501
     from opencompass.configs.models.hf_llama.hf_llama3_1_8b_instruct import \
@@ -142,6 +148,38 @@ with read_base():
 
     from ...volc import infer as volc_infer  # noqa: F401, E501
 
+lmdeploy_glm4_9b_chat_model_pytorch = deepcopy(*lmdeploy_glm4_9b_chat_model)
+lmdeploy_deepseek_v2_5_1210_model_pytorch = deepcopy(
+    *lmdeploy_deepseek_v2_5_1210_model)
+lmdeploy_gemma_9b_it_model_pytorch = deepcopy(*lmdeploy_gemma_9b_it_model)
+lmdeploy_gemma_27b_it_model_pytorch = deepcopy(*lmdeploy_gemma_27b_it_model)
+lmdeploy_internlm2_5_7b_chat_model_pytorch = deepcopy(
+    *lmdeploy_internlm2_5_7b_chat_model)
+lmdeploy_internlm2_5_20b_chat_model_pytorch = deepcopy(
+    *lmdeploy_internlm2_5_20b_chat_model)
+lmdeploy_internlm3_8b_instruct_model_pytorch = deepcopy(
+    *lmdeploy_internlm3_8b_instruct_model)
+lmdeploy_llama3_1_8b_instruct_model_pytorch = deepcopy(
+    *lmdeploy_llama3_1_8b_instruct_model)
+lmdeploy_llama3_2_3b_instruct_model_pytorch = deepcopy(
+    *lmdeploy_llama3_2_3b_instruct_model)
+lmdeploy_llama3_3_70b_instruct_model_pytorch = deepcopy(
+    *lmdeploy_llama3_3_70b_instruct_model)
+lmdeploy_nemotron_70b_instruct_hf_model_pytorch = deepcopy(
+    *lmdeploy_nemotron_70b_instruct_hf_model)
+lmdeploy_mistral_large_instruct_2411_model_pytorch = deepcopy(
+    *lmdeploy_mistral_large_instruct_2411_model)
+lmdeploy_mistral_small_instruct_2409_model_pytorch = deepcopy(
+    *lmdeploy_mistral_small_instruct_2409_model)
+lmdeploy_qwen2_5_0_5b_instruct_model_pytorch = deepcopy(
+    *lmdeploy_qwen2_5_0_5b_instruct_model)
+lmdeploy_qwen2_5_14b_instruct_model_pytorch = deepcopy(
+    *lmdeploy_qwen2_5_14b_instruct_model)
+lmdeploy_qwen2_5_72b_instruct_model_pytorch = deepcopy(
+    *lmdeploy_qwen2_5_72b_instruct_model)
+lmdeploy_qwen2_7b_instruct_model_pytorch = deepcopy(
+    *lmdeploy_qwen2_7b_instruct_model)
+
 race_datasets = [race_datasets[1]]
 datasets = sum([v for k, v in locals().items() if k.endswith('_datasets')], [])
 
@@ -155,6 +193,17 @@ api_meta_template = dict(
 
 for d in datasets:
     d['reader_cfg']['test_range'] = '[0:32]'
+
+for model in [
+        v for k, v in locals().items()
+        if not k.endswith('_pytorch') and 'lmdeploy' in k
+]:
+    model['backend'] = 'turbomind'
+
+for model in [v for k, v in locals().items() if k.endswith('_pytorch')]:
+    model['abbr'] = model['abbr'].replace('turbomind', 'pytorch').replace(
+        'lmdeploy', 'pytorch')
+    model['backend'] = 'pytorch'
 
 models = sum([v for k, v in locals().items() if k.endswith('_model')], [])
 
