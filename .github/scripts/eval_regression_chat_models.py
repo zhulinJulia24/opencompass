@@ -198,7 +198,7 @@ for model in [
         v for k, v in locals().items()
         if not k.endswith('_pytorch') and 'lmdeploy' in k
 ]:
-    model['backend'] = 'turbomind'
+    model[0]['backend'] = 'turbomind'
 
 for model in [v for k, v in locals().items() if k.endswith('_pytorch')]:
     model['abbr'] = model['abbr'].replace('turbomind', 'pytorch').replace(
