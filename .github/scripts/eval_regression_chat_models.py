@@ -194,13 +194,14 @@ api_meta_template = dict(
 for d in datasets:
     d['reader_cfg']['test_range'] = '[0:32]'
 
-for model in [
+for model in sum([
         v for k, v in locals().items()
         if not k.endswith('_pytorch') and 'lmdeploy' in k
-]:
+], []):
     model['backend'] = 'turbomind'
 
-for model in [v for k, v in locals().items() if k.endswith('_pytorch')]:
+for model in sum([v for k, v in locals().items() if k.endswith('_pytorch')],
+                 []):
     model['abbr'] = model['abbr'].replace('turbomind', 'pytorch').replace(
         'lmdeploy', 'pytorch')
     model['backend'] = 'pytorch'
