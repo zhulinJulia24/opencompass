@@ -147,10 +147,7 @@ for model in [v for k, v in locals().items() if k.endswith('_pytorch')]:
         'lmdeploy', 'pytorch')
     model['backend'] = 'pytorch'
 
-models = sum([
-    v for k, v in locals().items()
-    if k.endswith('_model') or k.endswith('_model_pytorch')
-], [])
+models = sum([v for k, v in locals().items() if '_model' in k], [])
 datasets = sum([v for k, v in locals().items() if k.endswith('_datasets')], [])
 
 for d in datasets:
