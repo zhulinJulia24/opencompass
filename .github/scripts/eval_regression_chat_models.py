@@ -205,7 +205,10 @@ for model in [v for k, v in locals().items() if k.endswith('_pytorch')]:
         'lmdeploy', 'pytorch')
     model['backend'] = 'pytorch'
 
-models = sum([v for k, v in locals().items() if k.endswith('_model')], [])
+models = sum([
+    v for k, v in locals().items()
+    if k.endswith('_model') or k.endswith('_model_pytorch')
+], [])
 
 for m in models:
     if 'turbomind' in m['abbr'] or 'lmdeploy' in m['abbr']:

@@ -138,11 +138,6 @@ lmdeploy_qwen2_5_32b_model_pytorch = deepcopy(*lmdeploy_qwen2_5_32b_model)
 lmdeploy_qwen2_5_72b_model_pytorch = deepcopy(*lmdeploy_qwen2_5_72b_model)
 
 race_datasets = [race_datasets[1]]
-models = sum([v for k, v in locals().items() if k.endswith('_model')], [])
-datasets = sum([v for k, v in locals().items() if k.endswith('_datasets')], [])
-
-for d in datasets:
-    d['reader_cfg']['test_range'] = '[0:32]'
 
 for model in [
         v for k, v in locals().items()
@@ -154,6 +149,15 @@ for model in [v for k, v in locals().items() if k.endswith('_pytorch')]:
     model['abbr'] = model['abbr'].replace('turbomind', 'pytorch').replace(
         'lmdeploy', 'pytorch')
     model['backend'] = 'pytorch'
+
+models = sum([
+    v for k, v in locals().items()
+    if k.endswith('_model') or k.endswith('_model_pytorch')
+], [])
+datasets = sum([v for k, v in locals().items() if k.endswith('_datasets')], [])
+
+for d in datasets:
+    d['reader_cfg']['test_range'] = '[0:32]'
 
 for m in models:
     if 'turbomind' in m['abbr'] or 'lmdeploy' in m['abbr']:
