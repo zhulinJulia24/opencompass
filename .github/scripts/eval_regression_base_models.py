@@ -140,7 +140,7 @@ lmdeploy_qwen2_5_72b_model_pytorch = deepcopy(*lmdeploy_qwen2_5_72b_model)
 race_datasets = [race_datasets[1]]
 
 for model in [v for k, v in locals().items() if k.startswith('lmdeploy_')]:
-    model['backend'] = 'turbomind'
+    model[0]['backend'] = 'turbomind'
 
 for model in [v for k, v in locals().items() if k.endswith('_pytorch')]:
     model['abbr'] = model['abbr'].replace('turbomind', 'pytorch').replace(

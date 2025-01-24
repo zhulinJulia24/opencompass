@@ -195,7 +195,7 @@ for d in datasets:
     d['reader_cfg']['test_range'] = '[0:32]'
 
 for model in [v for k, v in locals().items() if k.startswith('lmdeploy_')]:
-    model['backend'] = 'turbomind'
+    model[0]['backend'] = 'turbomind'
 
 for model in [v for k, v in locals().items() if k.endswith('_pytorch')]:
     model['abbr'] = model['abbr'].replace('turbomind', 'pytorch').replace(
