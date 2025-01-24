@@ -335,7 +335,7 @@ jobs:
 
 
   notify_to_feishu:
-    if: ${{ always() && !cancelled() && contains(needs.*.result, 'failure') && (github.ref_name == 'develop' || github.ref_name == 'main') }}
+    if: ${{ always() && !cancelled() && contains(needs.*.result, 'failure') && (github.ref_name == 'develop' || github.ref_name == 'main') && github.event_name == 'schedule' }}
     needs: [daily_run_test_volc, daily_run_test_local, fullbench_run_test]
     timeout-minutes: 5
     runs-on: self-hosted
