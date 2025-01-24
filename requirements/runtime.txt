@@ -35,6 +35,7 @@ rouge
 rouge_score
 sacrebleu
 scikit_learn==1.5.0
+sentence_transformers==2.2.2
 seaborn
 tabulate
 tiktoken
