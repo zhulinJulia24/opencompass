@@ -5,8 +5,7 @@ on:
     paths:
       - '.github/**'
   workflow_dispatch:
-  schedule:
-    - cron:  '56 22 * * *'
+
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
