@@ -1,0 +1,48 @@
+name: test_env
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron:  '15 14 * * 0,3'
+
+env:
+  HF_DATASETS_OFFLINE: 1
+  HF_EVALUATE_OFFLINE: 1
+  TRANSFORMERS_OFFLINE: 1
+  VLLM_USE_MODELSCOPE: false
+  LMDEPLOY_USE_MODELSCOPE: false
+  HF_HUB_OFFLINE: 1
+  OUTPUT_FOLDER: cuda12.1_dist_${{ github.run_id }}
+  CONDA_PATH: ${{ secrets.WORKSPACE_PREFIX }}/miniconda3
+  PIP_CACHE_PATH: ${{ secrets.WORKSPACE_PREFIX }}/.cache/pip
+  REPORT_ROOT: ${{ secrets.WORKSPACE_PREFIX }}/eval_report/regression
+  COMPASS_DATA_CACHE: ${{ secrets.SHARESPACE_PREFIX }}/datasets/compass_data_cache
+  HUGGINGFACE_HUB_CACHE: ${{ secrets.SHARESPACE_PREFIX }}/models/opencompass_hf_hub
+  HF_HUB_CACHE:  ${{ secrets.SHARESPACE_PREFIX }}/models/opencompass_hf_hub
+  HF_DATASETS_CACHE:  ${{ secrets.SHARESPACE_PREFIX }}/datasets/hf_datasets_cache
+  HF_ENDPOINT: https://hf-mirror.com
+  CONDA_ENV: regression_test
+  export VLLM_WORKER_MULTIPROC_METHOD: spawn
+
+jobs:
+  build-pypi-lmdeploy:
+    runs-on: ubuntu-latest
+    env:
+      PYTHON_VERSION: ${{ matrix.pyver }}
+      PLAT_NAME: manylinux2014_x86_64
+      DOCKER_TAG: cuda12.1
+    steps:
+      - name: Build
+        run: |
+          echo ${{ secrets.USER_ID }}
+          echo ${{ secrets.WORKSPACE_PREFIX }}
+          echo ${{ secrets.SHARESPACE_PREFIX }}
+
+  notify_to_feishu:
+    if: ${{ always() && github.event_name == 'schedule' && !cancelled() && contains(needs.*.result, 'failure') && (github.ref_name == 'develop' || github.ref_name == 'main') }}
+    timeout-minutes: 5
+    runs-on: self-hosted
+    steps:
+      - name: notify
+        run: |
+          curl -X POST -H "Content-Type: application/json" -d '{"msg_type":"post","content":{"post":{"zh_cn":{"title":"Opencompass- Daily test failed","content":[[{"tag":"text","text":"branch: ${{github.ref_name}}, run action: ${{github.workflow}} failed. "},{"tag":"a","text":"Please click here for details ","href":"https://github.com/'${{ github.repository }}'/actions/runs/'${GITHUB_RUN_ID}'"},{"tag":"at","user_id":"'${{ secrets.USER_ID }}'"}]]}}}}'  ${{ secrets.WEBHOOK_URL }}
