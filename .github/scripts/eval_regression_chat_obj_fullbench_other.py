@@ -6,10 +6,12 @@ from opencompass.utils.text_postprocessors import extract_non_reasoning_content
 
 with read_base():
     # Datasets
+    from opencompass.configs.chatml_datasets.CPsyExam.CPsyExam_gen import \
+        datasets as CPsyExam_chatml_datasets  # noqa: F401, E501
+    from opencompass.configs.chatml_datasets.MaScQA.MaScQA_gen import \
+        datasets as MaScQA_chatml_datasets  # noqa: F401, E501
     from opencompass.configs.datasets.eese.eese_llm_judge_gen import \
         eese_datasets  # noqa: F401, E501
-    from opencompass.configs.models.hf_internlm.hf_internlm3_8b_instruct import \
-        models as hf_internlm3_8b_instruct_model  # noqa: F401, E501
 
     from ...rjob import eval, infer  # noqa: F401, E501
 
