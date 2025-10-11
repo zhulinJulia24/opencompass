@@ -40,6 +40,8 @@ env:
   HF_DATASETS_CACHE: /mnt/shared-storage-user/auto-eval-pipeline/opencompass/llmeval/hf_cache
   HF_HUB_CACHE: /mnt/shared-storage-user/large-model-center-share-weights/hf_hub
   HF_ENDPOINT: https://hf-mirror.com
+  TMPDIR: /mnt/shared-storage-user/opencompass-shared/qa-llm-cicd/tmpdir
+  PIP_CACHE_DIR: /mnt/shared-storage-user/opencompass-shared/qa-llm-cicd/pip_cache
   CONDA_ENV: regression_test
   VLLM_WORKER_MULTIPROC_METHOD: spawn
   KUBEBRAIN_CLUSTER_ENTRY: https://h.pjlab.org.cn
@@ -103,8 +105,9 @@ jobs:
             . ${{env.CONDA_PATH}}/bin/activate
             conda create -y --name ${{env.CONDA_ENV}} python=3.10
             conda activate ${{env.CONDA_ENV}}
-            export PIP_CACHE_DIR=/mnt/shared-storage-user/opencompass-shared/qa-llm-cicd/pip_cache
-            export TMPDIR=/mnt/shared-storage-user/opencompass-shared/qa-llm-cicd/tmpdir
+            export PIP_CACHE_DIR=${{env.PIP_CACHE_DIR}}
+            rm -rf ${{env.TMPDIR}} && mkdir -p ${{env.TMPDIR}}
+            export TMPDIR=${{env.TMPDIR}}
             pip install -r /mnt/shared-storage-user/opencompass-shared/qa-llm-cicd/config/requirements.txt -i https://pkg.pjlab.org.cn/repository/pypi-proxy/simple/ --trusted-host pkg.pjlab.org.cn
             pip install opencompass*.whl -i https://pkg.pjlab.org.cn/repository/pypi-proxy/simple/ --trusted-host pkg.pjlab.org.cn
             pip install opencompass[lmdeploy] -i https://pkg.pjlab.org.cn/repository/pypi-proxy/simple/ --trusted-host pkg.pjlab.org.cn
