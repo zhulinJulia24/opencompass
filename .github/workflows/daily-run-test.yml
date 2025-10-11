@@ -57,7 +57,7 @@ jobs:
       http_proxy: ''
       https_proxy: ''
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v5
         with:
           repository: ${{ github.event.inputs.repo_org || 'open-compass/opencompass' }}
           ref: ${{github.event.inputs.repo_ref || 'main'}}
@@ -84,7 +84,7 @@ jobs:
     timeout-minutes: 120 #2hours
     steps:
       - name: Clone repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v5
         with:
           repository: ${{ github.event.inputs.repo_org || 'open-compass/opencompass' }}
           ref: ${{github.event.inputs.repo_ref || 'main'}}
@@ -137,7 +137,7 @@ jobs:
     timeout-minutes: 180 #3hours
     steps:
       - name: Clone repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v5
         with:
           repository: ${{ github.event.inputs.repo_org || 'open-compass/opencompass' }}
           ref: ${{github.event.inputs.repo_ref || 'main'}}
@@ -160,3 +160,80 @@ jobs:
           python -m pytest -m ${{matrix.regression_func}} -s -v --color=yes .github/scripts/oc_score_assert.py || true
           python .github/scripts/compare_results.py compare_results ${{env.REPORT_ROOT}}/${{ github.run_id }}/${{matrix.regression_func}} ${{env.REPORT_ROOT}}/${{env.BASELINE_DIR}}/${{matrix.regression_func}}
 
+
+  daily_run_cmd:
+    if: ${{!cancelled() && contains(needs.prepare_env.result, 'success')}}
+    needs: prepare_env
+    runs-on: yidian_cu12
+    defaults:
+      run:
+        working-directory: ${{env.WORKDIR}}
+    timeout-minutes: 180 #3hours
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v5
+        with:
+          repository: ${{ github.event.inputs.repo_org || 'open-compass/opencompass' }}
+          ref: ${{github.event.inputs.repo_ref || 'main'}}
+          path: ${{env.WORKDIR}}
+      - name: conda env
+        run: |
+          . ${{env.CONDA_PATH}}/bin/activate
+          conda activate ${{env.CONDA_ENV}}
+          conda info --envs
+          pip list
+      - name:  Run test
+        run: |
+          . ${{env.CONDA_PATH}}/bin/activate
+          conda activate ${{env.CONDA_ENV}}
+          conda info --envs
+          export from_tf=TRUE
+          python tools/list_configs.py internlm2_5 mmlu
+          
+          opencompass --models hf_internlm2_5_7b --datasets race_ppl demo_gsm8k_chat_gen --work-dir ${{env.REPORT_ROOT}}/${{ github.run_id }}/cmd1 --reuse --max-num-workers 2 --dump-eval-details
+          rm regression_result_daily -f && ln -s ${{env.REPORT_ROOT}}/${{ github.run_id }}/cmd1/*/summary regression_result_daily
+          python -m pytest -m case1 -s -v --color=yes .github/scripts/oc_score_assert.py
+          opencompass --models hf_internlm2_5_7b_chat hf_internlm3_8b_instruct --datasets race_gen demo_gsm8k_chat_gen -a lmdeploy --work-dir ${{env.REPORT_ROOT}}/${{ github.run_id }}/cmd2 --reuse --max-num-workers 2 --dump-eval-details
+          rm regression_result_daily -f && ln -s ${{env.REPORT_ROOT}}/${{ github.run_id }}/cmd2/*/summary regression_result_daily
+          python -m pytest -m case2 -s -v --color=yes .github/scripts/oc_score_assert.py
+          opencompass --datasets race_ppl demo_gsm8k_chat_gen --hf-type base --hf-path internlm/internlm2_5-7b --work-dir ${{env.REPORT_ROOT}}/${{ github.run_id }}/cmd3 --reuse --max-num-workers 2 --dump-eval-details
+          rm regression_result_daily -f && ln -s ${{env.REPORT_ROOT}}/${{ github.run_id }}/cmd3/*/summary regression_result_daily
+          python -m pytest -m case3 -s -v --color=yes .github/scripts/oc_score_assert.py
+          opencompass --datasets race_gen demo_gsm8k_chat_gen --hf-type chat --hf-path internlm/internlm3-8b-instruct -a lmdeploy --work-dir ${{env.REPORT_ROOT}}/${{ github.run_id }}/cmd4 --reuse --max-num-workers 2 --dump-eval-details
+          rm regression_result_daily -f && ln -s ${{env.REPORT_ROOT}}/${{ github.run_id }}/cmd4/*/summary regression_result_daily
+          python -m pytest -m case4 -s -v --color=yes .github/scripts/oc_score_assert.py
+          opencompass --datasets race_gen demo_gsm8k_chat_gen --hf-type chat --hf-path internlm/internlm3-8b-instruct -a vllm --work-dir ${{env.REPORT_ROOT}}/${{ github.run_id }}/cmd5 --reuse --max-num-workers 2 --dump-eval-details
+          rm regression_result_daily -f && ln -s ${{env.REPORT_ROOT}}/${{ github.run_id }}/cmd5/*/summary regression_result_daily
+          python -m pytest -m case5 -s -v --color=yes .github/scripts/oc_score_assert.py
+
+  daily_run_api:
+    if: ${{!cancelled() && contains(needs.prepare_env.result, 'success')}}
+    needs: prepare_env
+    runs-on: yidian_cu12
+    defaults:
+      run:
+        working-directory: ${{env.WORKDIR}}
+    timeout-minutes: 180 #3hours
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v5
+        with:
+          repository: ${{ github.event.inputs.repo_org || 'open-compass/opencompass' }}
+          ref: ${{github.event.inputs.repo_ref || 'main'}}
+          path: ${{env.WORKDIR}}
+      - name: conda env
+        run: |
+          . ${{env.CONDA_PATH}}/bin/activate
+          conda activate ${{env.CONDA_ENV}}
+          conda info --envs
+          pip list
+      - name:  Run test
+        run: |
+          . ${{env.CONDA_PATH}}/bin/activate
+          conda activate ${{env.CONDA_ENV}}
+          conda info --envs
+          cp /mnt/shared-storage-user/opencompass-shared/qa-llm-cicd/config/rjob.py .
+          opencompass .github/scripts/eval_regression_${{matrix.regression_func}}.py --work-dir ${{env.REPORT_ROOT}}/${{ github.run_id }}/${{matrix.regression_func}} --reuse --dump-eval-details
+          rm regression_result_daily -f && ln -s ${{env.REPORT_ROOT}}/${{ github.run_id }}/${{matrix.regression_func}}/*/summary regression_result_daily
+          python -m pytest -m ${{matrix.regression_func}} -s -v --color=yes .github/scripts/oc_score_assert.py || true
+          python .github/scripts/compare_results.py compare_results ${{env.REPORT_ROOT}}/${{ github.run_id }}/${{matrix.regression_func}} ${{env.REPORT_ROOT}}/${{env.BASELINE_DIR}}/${{matrix.regression_func}}
