@@ -35,7 +35,6 @@ env:
   HF_HUB_OFFLINE: 1
   OUTPUT_FOLDER: cuda12.1_dist_${{ github.run_id }}
   CONDA_PATH: /mnt/shared-storage-user/opencompass-shared/qa-llm-cicd/miniconda3
-  TMPDIR: /mnt/shared-storage-user/opencompass-shared/qa-llm-cicd/tmpdir
   REPORT_ROOT: /mnt/shared-storage-user/opencompass-shared/qa-llm-cicd/eval_report/regression_test
   COMPASS_DATA_CACHE: /mnt/shared-storage-user/auto-eval-pipeline/opencompass/llmeval/compass_data_cache
   HF_DATASETS_CACHE: /mnt/shared-storage-user/auto-eval-pipeline/opencompass/llmeval/hf_cache
@@ -105,6 +104,7 @@ jobs:
             conda create -y --name ${{env.CONDA_ENV}} python=3.10
             conda activate ${{env.CONDA_ENV}}
             export PIP_CACHE_DIR=/mnt/shared-storage-user/opencompass-shared/qa-llm-cicd/pip_cache
+            export TMPDIR=/mnt/shared-storage-user/opencompass-shared/qa-llm-cicd/tmpdir
             pip install -r /mnt/shared-storage-user/opencompass-shared/qa-llm-cicd/config/requirements.txt -i https://pkg.pjlab.org.cn/repository/pypi-proxy/simple/ --trusted-host pkg.pjlab.org.cn
             pip install opencompass*.whl -i https://pkg.pjlab.org.cn/repository/pypi-proxy/simple/ --trusted-host pkg.pjlab.org.cn
             pip install opencompass[lmdeploy] -i https://pkg.pjlab.org.cn/repository/pypi-proxy/simple/ --trusted-host pkg.pjlab.org.cn
