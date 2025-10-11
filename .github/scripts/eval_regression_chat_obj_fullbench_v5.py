@@ -1,5 +1,9 @@
 from mmengine.config import read_base
 
+from opencompass.models import (HuggingFacewithChatTemplate,
+                                TurboMindModelwithChatTemplate)
+from opencompass.utils.text_postprocessors import extract_non_reasoning_content
+
 with read_base():
     # read hf models - chat models
     # Dataset
@@ -74,10 +78,6 @@ with read_base():
         triviaqa_datasets  # noqa: F401, E501
     from opencompass.configs.datasets.wikibench.wikibench_gen_0978ad import \
         wikibench_datasets  # noqa: F401, E501
-    from opencompass.configs.models.hf_internlm.hf_internlm2_5_7b_chat import \
-        models as hf_internlm2_5_7b_chat_model  # noqa: F401, E501
-    from opencompass.configs.models.hf_internlm.lmdeploy_internlm2_5_7b_chat import \
-        models as lmdeploy_internlm2_5_7b_chat_model  # noqa: F401, E501
     # Summary Groups
     # Summary Groups
     from opencompass.configs.summarizers.groups.bbh import \
@@ -107,7 +107,7 @@ with read_base():
     from opencompass.configs.summarizers.mmmlu_lite import \
         mmmlu_summary_groups  # noqa: F401, E501
 
-    from ...volc import infer  # noqa: F401, E501
+    from ...rjob import eval, infer  # noqa: F401, E501
 
 # For HumanEval-X Evaluation
 # Apply the evaluator ip_address and port
@@ -307,11 +307,26 @@ summarizer = dict(
 for d in datasets:
     d['reader_cfg']['test_range'] = '[0:16]'
 
-models = sum([v for k, v in locals().items() if k.endswith('_model')], [])
-for m in models:
-    m['abbr'] = m['abbr'] + '_fullbench'
-    if 'turbomind' in m['abbr'] or 'lmdeploy' in m['abbr']:
-        m['engine_config']['max_batch_size'] = 1
-        m['batch_size'] = 1
+hf_model = dict(
+    type=HuggingFacewithChatTemplate,
+    abbr='internlm3-8b-instruct-hf-fullbench',
+    path='internlm/internlm3-8b-instruct',
+    max_out_len=8192,
+    batch_size=8,
+    run_cfg=dict(num_gpus=1),
+)
+
+tm_model = dict(type=TurboMindModelwithChatTemplate,
+                abbr='qwen-3-8b-fullbench',
+                path='Qwen/Qwen3-8B',
+                engine_config=dict(session_len=32768, max_batch_size=1, tp=1),
+                gen_config=dict(do_sample=False, enable_thinking=True),
+                max_seq_len=32768,
+                max_out_len=32768,
+                batch_size=1,
+                run_cfg=dict(num_gpus=1),
+                pred_postprocessor=dict(type=extract_non_reasoning_content))
+
+models = [hf_model, tm_model]
 
 models = sorted(models, key=lambda x: x['run_cfg']['num_gpus'])

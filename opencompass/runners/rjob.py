@@ -115,6 +115,10 @@ class RJOBRunner(BaseRunner):
                     status = 'Timeout'
                     found_dict = True
                     break
+                if 'Inqueue' in line:
+                    status = 'Inqueue'
+                    found_dict = True
+                    break
                 if 'Restarting' in line:
                     status = 'Restarting'
                     found_dict = True
