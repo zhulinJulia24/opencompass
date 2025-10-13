@@ -45,14 +45,13 @@ api_meta_template = dict(
     reserved_roles=[dict(role='SYSTEM', api_role='SYSTEM')],
 )
 
-hf_model = dict(
-    type=HuggingFacewithChatTemplate,
-    abbr='internlm3-8b-instruct-hf-fullbench',
-    path='internlm/internlm3-8b-instruct',
-    max_out_len=8192,
-    batch_size=8,
-    run_cfg=dict(num_gpus=1),
-)
+hf_model = dict(type=HuggingFacewithChatTemplate,
+                abbr='qwen-3-8b-hf-fullbench',
+                path='Qwen/Qwen3-8B',
+                max_out_len=8192,
+                batch_size=8,
+                run_cfg=dict(num_gpus=1),
+                pred_postprocessor=dict(type=extract_non_reasoning_content))
 
 tm_model = dict(type=TurboMindModelwithChatTemplate,
                 abbr='qwen-3-8b-fullbench',
@@ -67,8 +66,17 @@ tm_model = dict(type=TurboMindModelwithChatTemplate,
 
 models = [hf_model, tm_model]
 
-judge_models = deepcopy([tm_model])
-judge_models[0]['abbr'] = 'qwen-3-8b-judge'
+judge_models = [
+    dict(type=TurboMindModelwithChatTemplate,
+         abbr='qwen-3-8b-fullbench',
+         path='Qwen/Qwen3-8B-judger',
+         engine_config=dict(session_len=46000, max_batch_size=1, tp=1),
+         gen_config=dict(do_sample=False, enable_thinking=False),
+         max_seq_len=46000,
+         max_out_len=46000,
+         batch_size=1,
+         run_cfg=dict(num_gpus=1))
+]
 
 summary_groups = []
 summary_groups.append({

@@ -98,14 +98,13 @@ for d in datasets:
         d['eval_cfg']['evaluator']['llm_evaluator']['dataset_cfg'][
             'reader_cfg']['test_range'] = '[0:16]'
 
-hf_model = dict(
-    type=HuggingFacewithChatTemplate,
-    abbr='internlm3-8b-instruct-hf-fullbench',
-    path='internlm/internlm3-8b-instruct',
-    max_out_len=8192,
-    batch_size=8,
-    run_cfg=dict(num_gpus=1),
-)
+hf_model = dict(type=HuggingFacewithChatTemplate,
+                abbr='qwen-3-8b-hf-fullbench',
+                path='Qwen/Qwen3-8B',
+                max_out_len=8192,
+                batch_size=8,
+                run_cfg=dict(num_gpus=1),
+                pred_postprocessor=dict(type=extract_non_reasoning_content))
 
 tm_model = dict(type=TurboMindModelwithChatTemplate,
                 abbr='qwen-3-8b-fullbench',
@@ -122,7 +121,17 @@ models = [hf_model, tm_model]
 
 models = sorted(models, key=lambda x: x['run_cfg']['num_gpus'])
 
-obj_judge_model = tm_model
+obj_judge_model = dict(type=TurboMindModelwithChatTemplate,
+                       abbr='qwen-3-8b-fullbench',
+                       path='Qwen/Qwen3-8B-judger',
+                       engine_config=dict(session_len=46000,
+                                          max_batch_size=1,
+                                          tp=1),
+                       gen_config=dict(do_sample=False, enable_thinking=False),
+                       max_seq_len=46000,
+                       max_out_len=46000,
+                       batch_size=1,
+                       run_cfg=dict(num_gpus=1))
 
 for d in datasets:
     if 'judge_cfg' in d['eval_cfg']['evaluator']:

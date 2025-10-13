@@ -152,8 +152,8 @@ jobs:
           conda activate ${{env.CONDA_ENV}}
           conda info --envs
           cp /mnt/shared-storage-user/opencompass-shared/qa-llm-cicd/config/rjob.py .
-          sed -i "s/TASK_ID='None'/TASK_ID='${{ github.run_id }}'/g" rjob.py
-          opencompass .github/scripts/eval_regression_${{matrix.regression_func}}.py --work-dir ${{env.REPORT_ROOT}}/${{ github.run_id }}/${{matrix.regression_func}} --reuse --dump-eval-details
+          sed -i "s/TASK_ID='none'/TASK_ID='${{ github.run_id }}'/g" rjob.py
+          opencompass .github/scripts/eval_regression_${{matrix.regression_func}}.py --work-dir ${{env.REPORT_ROOT}}/${{ github.run_id }}/${{matrix.regression_func}} --reuse
           rm regression_result_daily -f && ln -s ${{env.REPORT_ROOT}}/${{ github.run_id }}/${{matrix.regression_func}}/*/summary regression_result_daily
           python -m pytest -m ${{matrix.regression_func}} -s -v --color=yes .github/scripts/oc_score_assert.py || true
           python .github/scripts/compare_results.py compare_results ${{env.REPORT_ROOT}}/${{ github.run_id }}/${{matrix.regression_func}} ${{env.REPORT_ROOT}}/${{env.BASELINE_DIR}}/${{matrix.regression_func}}
