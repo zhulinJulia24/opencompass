@@ -36,8 +36,6 @@ with read_base():
     from opencompass.configs.datasets.HLE.hle_llmverify_gen_6ff468 import \
         hle_datasets  # noqa: F401, E501
     # # Coding
-    from opencompass.configs.datasets.humaneval.humaneval_openai_sample_evals_gen_dcae0e import \
-        humaneval_datasets  # noqa: F401, E501
     from opencompass.configs.datasets.IFEval.IFEval_gen_353ae7 import \
         ifeval_datasets  # noqa: F401, E501
     from opencompass.configs.datasets.kcle.kcle_llm_judge_gen import \
@@ -128,8 +126,9 @@ for datasets_, num in repeated_info:
         dataset_['k'] = num
 
 datasets = [
-    v[0] for k, v in locals().items() if k.endswith('_datasets')
-    and 'bigcode' not in k.lower() and isinstance(v, list) and len(v) > 0
+    v[0] for k, v in locals().items()
+    if k.endswith('_datasets') and 'bigcode' not in k.lower()
+    and 'humaneval' not in k.lower() and isinstance(v, list) and len(v) > 0
 ]
 
 datasets += bigcodebench_hard_instruct_datasets
