@@ -19,10 +19,15 @@ with read_base():
 
     from ...rjob import eval, infer  # noqa: F401, E501
 
-datasets = [
+chatml_datasets = [
     v[0] for k, v in locals().items()
-    if k.endswith('_datasets') and isinstance(v, list) and len(v) > 0
+    if k.endswith('_chatml_datasets') and isinstance(v, list) and len(v) > 0
 ]
+
+datasets = [eese_datasets[0]]
+
+for d in chatml_datasets:
+    d['test_range'] = '[0:16]'
 
 for d in datasets:
     if 'reader_cfg' in d:
@@ -63,7 +68,18 @@ models = [hf_model, tm_model]
 
 models = sorted(models, key=lambda x: x['run_cfg']['num_gpus'])
 
-obj_judge_model = tm_model
+obj_judge_model = dict(
+    type=TurboMindModelwithChatTemplate,
+    abbr='qwen-3-8b-fullbench',
+    path='Qwen/Qwen3-8B',
+    engine_config=dict(session_len=46000, max_batch_size=1, tp=1),
+    gen_config=dict(do_sample=False, enable_thinking=True),
+    max_seq_len=46000,
+    max_out_len=46000,
+    batch_size=1,
+    run_cfg=dict(num_gpus=1),
+    pred_postprocessor=dict(type=extract_non_reasoning_content))
+
 for d in datasets:
     if 'eval_cfg' in d and 'evaluator' in d['eval_cfg']:
         if 'judge_cfg' in d['eval_cfg']['evaluator']:
@@ -72,3 +88,10 @@ for d in datasets:
                 'eval_cfg']['evaluator']['llm_evaluator']:
             d['eval_cfg']['evaluator']['llm_evaluator'][
                 'judge_cfg'] = obj_judge_model
+
+for d in chatml_datasets:
+    if 'judge_cfg' in d['evaluator']:
+        d['evaluator']['judge_cfg'] = obj_judge_model
+    if 'llm_evaluator' in d['evaluator'] and 'judge_cfg' in d['evaluator'][
+            'llm_evaluator']:
+        d['evaluator']['llm_evaluator']['judge_cfg'] = obj_judge_model

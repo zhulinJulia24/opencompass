@@ -15,18 +15,16 @@ with read_base():
     # from opencompass.configs.datasets.ARC_Prize_Public_Evaluation.arc_prize_public_evaluation_gen_872059 import arc_prize_public_evaluation_datasets  # noqa: F401, E501
     from opencompass.configs.datasets.bbh.bbh_gen_5b92b0 import \
         bbh_datasets  # noqa: F401, E501
-    from opencompass.configs.datasets.bigcodebench.bigcodebench_hard_complete_gen_faf748 import \
-        bigcodebench_hard_complete_datasets  # noqa: F401, E501
-    from opencompass.configs.datasets.bigcodebench.bigcodebench_hard_instruct_gen_8815eb import \
-        bigcodebench_hard_instruct_datasets  # noqa: F401, E501
+    # from opencompass.configs.datasets.bigcodebench.bigcodebench_hard_complete_gen_faf748 import \ # noqa: F401, E501
+    #    bigcodebench_hard_complete_datasets  # noqa: F401, E501
+    # from opencompass.configs.datasets.bigcodebench.bigcodebench_hard_instruct_gen_8815eb import \ # noqa: F401, E501
+    #    bigcodebench_hard_instruct_datasets  # noqa: F401, E501
     from opencompass.configs.datasets.cmmlu.cmmlu_0shot_cot_gen_305931 import \
         cmmlu_datasets  # noqa: F401, E501
     from opencompass.configs.datasets.cmo_fib.cmo_fib_gen_ace24b import \
         cmo_fib_datasets  # noqa: F401, E501
     from opencompass.configs.datasets.drop.drop_openai_simple_evals_gen_3857b0 import \
         drop_datasets  # noqa: F401, E501
-    from opencompass.configs.datasets.ds1000.ds1000_service_eval_gen_cbc84f import \
-        ds1000_datasets  # noqa: F401, E501
     from opencompass.configs.datasets.GaokaoBench.GaokaoBench_no_subjective_gen_4c31db import \
         GaokaoBench_datasets  # noqa: F401, E501
     from opencompass.configs.datasets.gpqa.gpqa_openai_simple_evals_gen_5aeece import \
@@ -38,8 +36,6 @@ with read_base():
         hellaswag_datasets  # noqa: F401, E501
     from opencompass.configs.datasets.humaneval.humaneval_openai_sample_evals_gen_dcae0e import \
         humaneval_datasets  # noqa: F401, E501
-    from opencompass.configs.datasets.humanevalx.humanevalx_gen_3d84a3 import \
-        humanevalx_datasets  # noqa: F401, E501
     from opencompass.configs.datasets.IFEval.IFEval_gen_353ae7 import \
         ifeval_datasets  # noqa: F401, E501
     from opencompass.configs.datasets.korbench.korbench_single_0_shot_gen import \
@@ -84,12 +80,8 @@ with read_base():
         bbh_summary_groups  # noqa: F401, E501
     from opencompass.configs.summarizers.groups.cmmlu import \
         cmmlu_summary_groups  # noqa: F401, E501
-    from opencompass.configs.summarizers.groups.ds1000 import \
-        ds1000_summary_groups  # noqa: F401, E501
     from opencompass.configs.summarizers.groups.GaokaoBench import \
         GaokaoBench_summary_groups  # noqa: F401, E501
-    from opencompass.configs.summarizers.groups.humanevalx import \
-        humanevalx_summary_groups  # noqa: F401, E501
     from opencompass.configs.summarizers.groups.korbench import \
         korbench_summary_groups  # noqa: F401, E501
     from opencompass.configs.summarizers.groups.mathbench_v1_2024 import \
@@ -109,20 +101,7 @@ with read_base():
 
     from ...rjob import eval, infer  # noqa: F401, E501
 
-# For HumanEval-X Evaluation
-# Apply the evaluator ip_address and port
 race_datasets = [race_datasets[1]]
-for item in humanevalx_datasets:
-    item['eval_cfg']['evaluator'][
-        'ip_address'] = 'codeeval.opencompass.org.cn/humanevalx'
-    item['eval_cfg']['evaluator']['port'] = ''
-
-# For DS-1000 Evaluation
-# Apply the evaluator ip_address and port
-for item in ds1000_datasets:
-    item['eval_cfg']['evaluator'][
-        'ip_address'] = 'codeeval.opencompass.org.cn/ds1000'
-    item['eval_cfg']['evaluator']['port'] = ''
 
 bbh_datasets = [
     x for x in bbh_datasets if 'logical_deduction_seven_objects' in x['abbr']
@@ -310,7 +289,7 @@ for d in datasets:
 hf_model = dict(type=HuggingFacewithChatTemplate,
                 abbr='qwen-3-8b-hf-fullbench',
                 path='Qwen/Qwen3-8B',
-                max_out_len=8192,
+                max_out_len=32768,
                 batch_size=8,
                 run_cfg=dict(num_gpus=1),
                 pred_postprocessor=dict(type=extract_non_reasoning_content))

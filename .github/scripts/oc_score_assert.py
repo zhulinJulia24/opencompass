@@ -103,10 +103,10 @@ class TestBase:
 class TestChatObjFullbench:
     """Test cases for chat model."""
 
-    @pytest.mark.parametrize('model, dataset', [(p1, p2) for p1 in [
-        'internlm2_5-7b-chat-hf_fullbench',
-        'internlm2_5-7b-chat-turbomind_fullbench'
-    ] for p2 in dataset_list('internlm2_5-7b-chat-hf_fullbench', 'objective')])
+    @pytest.mark.parametrize('model, dataset', [
+        (p1, p2) for p1 in ['qwen-3-8b-hf-fullbench', 'qwen-3-8b-fullbench']
+        for p2 in dataset_list('internlm2_5-7b-chat-hf_fullbench', 'objective')
+    ])
     def test_model_dataset_score(self, baseline_scores_fullbench,
                                  result_scores, model, dataset):
         base_score = baseline_scores_fullbench.get(model).get('objective').get(
@@ -121,11 +121,11 @@ class TestChatObjFullbench:
 class TestChatObjFullbenchV6:
     """Test cases for chat model."""
 
-    @pytest.mark.parametrize('model, dataset', [(p1, p2) for p1 in [
-        'internlm3-8b-instruct-hf_fullbench',
-        'internlm3-8b-instruct-turbomind_fullbench'
-    ] for p2 in dataset_list('internlm3-8b-instruct-hf_fullbench',
-                             'objective_v6')])
+    @pytest.mark.parametrize(
+        'model, dataset',
+        [(p1, p2) for p1 in ['qwen-3-8b-hf-fullbench', 'qwen-3-8b-fullbench']
+         for p2 in dataset_list('internlm3-8b-instruct-hf_fullbench',
+                                'objective_v6')])
     def test_model_dataset_score(self, baseline_scores_fullbench,
                                  result_scores, model, dataset):
         base_score = baseline_scores_fullbench.get(model).get(
@@ -140,11 +140,11 @@ class TestChatObjFullbenchV6:
 class TestChatObjFullbenchV7:
     """Test cases for chat model."""
 
-    @pytest.mark.parametrize('model, dataset', [(p1, p2) for p1 in [
-        'internlm3-8b-instruct-hf_fullbench',
-        'internlm3-8b-instruct-turbomind_fullbench'
-    ] for p2 in dataset_list('internlm3-8b-instruct-hf_fullbench',
-                             'objective_v7')])
+    @pytest.mark.parametrize(
+        'model, dataset',
+        [(p1, p2) for p1 in ['qwen-3-8b-hf-fullbench', 'qwen-3-8b-fullbench']
+         for p2 in dataset_list('internlm3-8b-instruct-hf_fullbench',
+                                'objective_v7')])
     def test_model_dataset_score(self, baseline_scores_fullbench,
                                  result_scores, model, dataset):
         base_score = baseline_scores_fullbench.get(model).get(
@@ -159,11 +159,10 @@ class TestChatObjFullbenchV7:
 class TestChatObjFullbenchOther:
     """Test cases for chat model."""
 
-    @pytest.mark.parametrize('model, dataset', [(p1, p2) for p1 in [
-        'internlm3-8b-instruct-hf_fullbench',
-        'internlm3-8b-instruct-turbomind_fullbench'
-    ] for p2 in dataset_list('internlm3-8b-instruct-hf_fullbench',
-                             'objective_other')])
+    @pytest.mark.parametrize(
+        'model, dataset',
+        [(p1, p2) for p1 in ['qwen-3-8b-hf-fullbench', 'qwen-3-8b-fullbench']
+         for p2 in dataset_list('qwen-3-8b-hf-fullbench', 'objective_other')])
     def test_model_dataset_score(self, baseline_scores_fullbench,
                                  result_scores, model, dataset):
         base_score = baseline_scores_fullbench.get(model).get(
