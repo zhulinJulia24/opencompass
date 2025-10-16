@@ -28,7 +28,7 @@ with read_base():
     from opencompass.configs.datasets.subjective.wildbench.wildbench_pair_judge_new import \
         wildbench_datasets  # noqa: F401, E501
 
-    from ...rjob import eval, infer  # noqa: F401, E501
+    from ...rjob import eval, infer, sub_eval  # noqa: F401, E501
 
 datasets = sum((v for k, v in locals().items() if k.endswith('_datasets')
                 and 'mtbench101' not in k and 'wildbench' not in k), [])
@@ -76,8 +76,7 @@ judge_models = [
          run_cfg=dict(num_gpus=1))
 ]
 
-eval['partitioner']['models'] = models
-eval['partitioner']['judge_models'] = judge_models
+sub_eval['partitioner']['judge_models'] = judge_models
 
 summary_groups = []
 summary_groups.append({
