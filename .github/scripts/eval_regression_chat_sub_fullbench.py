@@ -1,5 +1,3 @@
-from copy import deepcopy
-
 from mmengine.config import read_base
 
 from opencompass.models import (HuggingFacewithChatTemplate,
@@ -68,8 +66,8 @@ models = [hf_model, tm_model]
 
 judge_models = [
     dict(type=TurboMindModelwithChatTemplate,
-         abbr='qwen-3-8b-fullbench',
-         path='Qwen/Qwen3-8B-judger',
+         abbr='qwen-3-8b-judger',
+         path='Qwen/Qwen3-8B',
          engine_config=dict(session_len=46000, max_batch_size=1, tp=1),
          gen_config=dict(do_sample=False, enable_thinking=False),
          max_seq_len=46000,
@@ -77,6 +75,9 @@ judge_models = [
          batch_size=1,
          run_cfg=dict(num_gpus=1))
 ]
+
+eval['partitioner']['models'] = models
+eval['partitioner']['judge_models'] = judge_models
 
 summary_groups = []
 summary_groups.append({
