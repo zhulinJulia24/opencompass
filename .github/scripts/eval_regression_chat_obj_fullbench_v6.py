@@ -123,7 +123,7 @@ models = sorted(models, key=lambda x: x['run_cfg']['num_gpus'])
 
 obj_judge_model = dict(type=TurboMindModelwithChatTemplate,
                        abbr='qwen-3-8b-fullbench',
-                       path='Qwen/Qwen3-8B-judger',
+                       path='Qwen/Qwen3-8B',
                        engine_config=dict(session_len=46000,
                                           max_batch_size=1,
                                           tp=1),

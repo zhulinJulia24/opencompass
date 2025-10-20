@@ -166,7 +166,17 @@ tm_model = dict(type=TurboMindModelwithChatTemplate,
 
 models = [hf_model, tm_model]
 
-obj_judge_model = tm_model
+obj_judge_model = dict(type=TurboMindModelwithChatTemplate,
+                       abbr='qwen-3-8b-fullbench',
+                       path='Qwen/Qwen3-8B',
+                       engine_config=dict(session_len=46000,
+                                          max_batch_size=1,
+                                          tp=1),
+                       gen_config=dict(do_sample=False, enable_thinking=False),
+                       max_seq_len=46000,
+                       max_out_len=46000,
+                       batch_size=1,
+                       run_cfg=dict(num_gpus=1))
 
 for d in datasets:
     if 'judge_cfg' in d['eval_cfg']['evaluator']:
