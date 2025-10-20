@@ -140,11 +140,12 @@ GaokaoBench_datasets = [
 
 datasets = sum(
     (v for k, v in locals().items() if k.endswith('_datasets')
-     and 'scicode' not in k.lower() and 'teval' not in k),
+     and 'scicode' not in k.lower() and 'teval' not in k and 'human' not in k),
     [],
 )
 datasets += teval_en_datasets
 datasets += teval_zh_datasets
+datasets += humaneval_datasets
 # datasets += SciCode_datasets
 
 musr_summary_groups = musr_summarizer['summary_groups']
