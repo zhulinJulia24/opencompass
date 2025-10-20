@@ -33,7 +33,7 @@ qwen-3-8b-hf-fullbench:
         hellaswag_accuracy: 75
         TheoremQA_score: 6.25
         musr_average_naive_average: 14.58
-        korbench_single_naive_average: 73.75
+        korbench_single_naive_average: 75.00
         gsm8k_accuracy: 75
         math_accuracy: 93.75
         cmo_fib_accuracy: 0

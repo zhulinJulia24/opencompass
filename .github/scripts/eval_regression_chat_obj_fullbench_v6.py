@@ -72,10 +72,10 @@ datasets = [
     and 'arc_prize' not in k.lower() and isinstance(v, list) and len(v) > 0
 ]
 
+datasets += arc_prize_public_evaluation_datasets
 dingo_datasets[0]['abbr'] = 'qa_dingo_cn'
 dingo_datasets[0]['path'] = 'data/qabench/history_prompt_case_cn.csv'
 datasets.append(dingo_datasets[0])
-datasets += arc_prize_public_evaluation_datasets
 
 musr_summary_groups = musr_summarizer['summary_groups']
 summary_groups = sum(
