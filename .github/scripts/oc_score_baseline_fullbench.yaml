@@ -29,13 +29,13 @@ qwen-3-8b-hf-fullbench:
         triviaqa_wiki_1shot_score: 0
         nq_open_1shot_score: 0
         drop_accuracy: 93.75
-        GPQA_diamond_accuracy: 43.75
+        GPQA_diamond_accuracy: 62.50
         hellaswag_accuracy: 75
         TheoremQA_score: 6.25
         musr_average_naive_average: 14.58
         korbench_single_naive_average: 73.75
         gsm8k_accuracy: 75
-        math_accuracy: 87.5
+        math_accuracy: 93.75
         cmo_fib_accuracy: 0
         aime2024_accuracy: 6.25
         wikibench-wiki-single_choice_cncircular_perf_4: 25
