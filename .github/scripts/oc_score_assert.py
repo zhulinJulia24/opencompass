@@ -60,72 +60,72 @@ def result_scores():
 
 @pytest.mark.usefixtures('result_scores')
 @pytest.mark.usefixtures('baseline_scores_fullbench')
-@pytest.mark.chat_obj_fullbench_v5
-class TestChatObjFullbench:
+class TestChatFullbench:
     """Test cases for chat model."""
 
     @pytest.mark.parametrize(
         'model, dataset',
         [(p1, p2) for p1 in ['qwen-3-8b-hf-fullbench', 'qwen-3-8b-fullbench']
          for p2 in dataset_list('qwen-3-8b-hf-fullbench', 'objective_v5')])
-    def test_model_dataset_score(self, baseline_scores_fullbench,
-                                 result_scores, model, dataset):
+    @pytest.mark.chat_obj_fullbench_v5
+    def test_chat_obj_v5(self, baseline_scores_fullbench, result_scores, model,
+                         dataset):
         base_score = baseline_scores_fullbench.get(model).get(
             'objective_v5').get(dataset)
         result_score = result_scores.get(model).get(dataset)
         assert_score(model, result_score, base_score, dataset)
 
-
-@pytest.mark.usefixtures('result_scores')
-@pytest.mark.usefixtures('baseline_scores_fullbench')
-@pytest.mark.chat_obj_fullbench_v6
-class TestChatObjFullbenchV6:
-    """Test cases for chat model."""
-
+    @pytest.mark.chat_obj_fullbench_v6
     @pytest.mark.parametrize(
         'model, dataset',
         [(p1, p2) for p1 in ['qwen-3-8b-hf-fullbench', 'qwen-3-8b-fullbench']
          for p2 in dataset_list('qwen-3-8b-hf-fullbench', 'objective_v6')])
-    def test_model_dataset_score(self, baseline_scores_fullbench,
-                                 result_scores, model, dataset):
+    def test_chat_obj_v6(self, baseline_scores_fullbench, result_scores, model,
+                         dataset):
         base_score = baseline_scores_fullbench.get(model).get(
             'objective_v6').get(dataset)
         result_score = result_scores.get(model).get(dataset)
         assert_score(model, result_score, base_score, dataset)
 
-
-@pytest.mark.usefixtures('result_scores')
-@pytest.mark.usefixtures('baseline_scores_fullbench')
-@pytest.mark.chat_obj_fullbench_v7
-class TestChatObjFullbenchV7:
-    """Test cases for chat model."""
-
+    @pytest.mark.chat_obj_fullbench_v7
     @pytest.mark.parametrize(
         'model, dataset',
         [(p1, p2) for p1 in ['qwen-3-8b-hf-fullbench', 'qwen-3-8b-fullbench']
          for p2 in dataset_list('qwen-3-8b-hf-fullbench', 'objective_v7')])
-    def test_model_dataset_score(self, baseline_scores_fullbench,
-                                 result_scores, model, dataset):
+    def test_chat_obj_v7(self, baseline_scores_fullbench, result_scores, model,
+                         dataset):
         base_score = baseline_scores_fullbench.get(model).get(
             'objective_v7').get(dataset)
+        result_score = result_scores.get(model).get(dataset)
+        assert_score(model, result_score, base_score, dataset)
+
+    @pytest.mark.chat_obj_fullbench_other
+    @pytest.mark.parametrize(
+        'model, dataset',
+        [(p1, p2) for p1 in ['qwen-3-8b-hf-fullbench', 'qwen-3-8b-fullbench']
+         for p2 in dataset_list('qwen-3-8b-hf-fullbench', 'objective_other')])
+    def test_chat_obj_other(self, baseline_scores_fullbench, result_scores,
+                            model, dataset):
+        base_score = baseline_scores_fullbench.get(model).get(
+            'objective_other').get(dataset)
         result_score = result_scores.get(model).get(dataset)
         assert_score(model, result_score, base_score, dataset)
 
 
 @pytest.mark.usefixtures('result_scores')
 @pytest.mark.usefixtures('baseline_scores_fullbench')
-@pytest.mark.chat_obj_fullbench_other
-class TestChatObjFullbenchOther:
+class TestBaseFullbench:
     """Test cases for chat model."""
 
     @pytest.mark.parametrize(
         'model, dataset',
-        [(p1, p2) for p1 in ['qwen-3-8b-hf-fullbench', 'qwen-3-8b-fullbench']
-         for p2 in dataset_list('qwen-3-8b-hf-fullbench', 'objective_other')])
-    def test_model_dataset_score(self, baseline_scores_fullbench,
-                                 result_scores, model, dataset):
+        [(p1, p2) for p1 in ['qwen3-8b-base-turbomind']
+         for p2 in dataset_list('qwen3-8b-base-turbomind', 'base_longtext')])
+    @pytest.mark.base_longtext_fullbench
+    def test_base_longtext(self, baseline_scores_fullbench, result_scores,
+                           model, dataset):
         base_score = baseline_scores_fullbench.get(model).get(
-            'objective_other').get(dataset)
+            'base_longtext').get(dataset)
         result_score = result_scores.get(model).get(dataset)
         assert_score(model, result_score, base_score, dataset)
 

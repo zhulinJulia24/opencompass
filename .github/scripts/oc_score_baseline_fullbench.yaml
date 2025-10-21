@@ -21,7 +21,7 @@ qwen-3-8b-hf-fullbench:
         MaScQA_correct_count: 12
         MaScQA_incorrect_count: 4
         MaScQA_not_attempted_count: 0
-        UGPhysics_AtomicPhysics_zh_accuracy: 37.5
+        UGPhysics_AtomicPhysics_zh_accuracy: 56.25
     objective_v5:
         race-high_accuracy: 87.5
         ARC-c_accuracy: 100
@@ -337,7 +337,7 @@ qwen-3-8b-fullbench:
         MaScQA_correct_count: 13
         MaScQA_incorrect_count: 3
         MaScQA_not_attempted_count: 0
-        UGPhysics_AtomicPhysics_zh_accuracy: 43.75
+        UGPhysics_AtomicPhysics_zh_accuracy: 68.75
     objective_v5:
         race-high_accuracy: 81.25
         ARC-c_accuracy: 100
@@ -628,3 +628,9 @@ qwen-3-8b-fullbench:
         srbench_SymbolicMatch: 0.14
         supergpqa_Electronic_Science_and_Technology_accuracy: 43.75
         lcb_code_generation_v6_pass@1: 50
+
+
+qwen3-8b-base-turbomind:
+    base_longtext: 
+        LongBench_2wikimqa_score: 26.98
+        Length32000Depth0_origin_en_32000_score: 100.00

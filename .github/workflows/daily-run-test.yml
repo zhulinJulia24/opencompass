@@ -163,6 +163,7 @@ jobs:
         env: 
           DATASET_SOURCE: HF
         run: |
+          sed -i "s/DATASET_SOURCE=/DATASET_SOURCE=HF/g" rjob.py
           . ${{env.CONDA_PATH}}/bin/activate
           conda activate ${{env.CONDA_ENV}}
           conda info --envs
