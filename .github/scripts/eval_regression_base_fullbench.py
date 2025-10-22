@@ -215,6 +215,8 @@ tm_model = dict(
     run_cfg=dict(num_gpus=1),
 )
 
+models = [hf_model, tm_model]
+
 datasets = sum([v for k, v in locals().items() if k.endswith('_datasets')], [])
 
 for d in datasets:

@@ -28,6 +28,7 @@ qwen-3-8b-hf-fullbench:
         BoolQ_accuracy: 93.75
         triviaqa_wiki_1shot_score: 0
         nq_open_1shot_score: 0
+        IFEval_Prompt-level-strict-accuracy: 87.50
         drop_accuracy: 93.75
         GPQA_diamond_accuracy: 62.50
         hellaswag_accuracy: 75
@@ -43,6 +44,7 @@ qwen-3-8b-hf-fullbench:
         lcb_code_generation_pass@1: 6.25
         lcb_code_execution_pass@1: 50
         lcb_test_output_pass@1: 0
+        teval_naive_average: 69.16
         bbh-logical_deduction_seven_objects_score: 12.5
         bbh-multistep_arithmetic_two_score: 0
         mmlu-other_accuracy: 77.88
@@ -344,6 +346,7 @@ qwen-3-8b-fullbench:
         BoolQ_accuracy: 87.5
         triviaqa_wiki_1shot_score: 0
         nq_open_1shot_score: 0
+        IFEval_Prompt-level-strict-accuracy: 87.50
         drop_accuracy: 93.75
         GPQA_diamond_accuracy: 75
         hellaswag_accuracy: 87.5
@@ -359,6 +362,7 @@ qwen-3-8b-fullbench:
         lcb_code_generation_pass@1: 6.25
         lcb_code_execution_pass@1: 68.75
         lcb_test_output_pass@1: 0
+        teval_naive_average: 67.43
         bbh-logical_deduction_seven_objects_score: 6.25
         bbh-multistep_arithmetic_two_score: 0
         mmlu-other_accuracy: 81.25

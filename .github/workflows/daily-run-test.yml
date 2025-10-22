@@ -173,7 +173,7 @@ jobs:
         env: 
           COMPASS_DATA_CACHE: /mnt/shared-storage-user/auto-eval-pipeline/opencompass/llmeval/compass_data_cache_sub
         run: |
-          sed -i "s/compass_data_cache=/compass_data_cache_sub/g" rjob.py
+          sed -i "s/compass_data_cache/compass_data_cache_sub/g" rjob.py
           . ${{env.CONDA_PATH}}/bin/activate
           conda activate ${{env.CONDA_ENV}}
           conda info --envs
