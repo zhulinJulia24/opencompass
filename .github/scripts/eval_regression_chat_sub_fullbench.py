@@ -73,7 +73,8 @@ judge_models = [
          max_seq_len=46000,
          max_out_len=46000,
          batch_size=1,
-         run_cfg=dict(num_gpus=1))
+         run_cfg=dict(num_gpus=1),
+         pred_postprocessor=dict(type=extract_non_reasoning_content))
 ]
 
 sub_eval['partitioner']['judge_models'] = judge_models
