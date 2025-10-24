@@ -28,7 +28,7 @@ with read_base():
 models = [
     dict(
         type=TurboMindModelwithChatTemplate,
-        abbr='qwen3-8b-turbomind',
+        abbr='qwen-3-8b-fullbench',
         path='Qwen/Qwen3-8B',
         engine_config=dict(hf_override=dict(
             rope_scaling=dict(rope_type='yarn',
