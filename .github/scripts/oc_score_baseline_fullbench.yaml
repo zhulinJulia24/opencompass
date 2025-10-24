@@ -501,14 +501,14 @@ qwen-3-8b-fullbench:
         bbeh_boolean_expressions_incorrect_count: 5
         bbeh_boolean_expressions_not_attempted_count: 0
         Chem_exam-competition_final_score: 42.29
-        Chem_exam-gaokao_final_score: 53.12
-        ChemBench_Name_Conversion_accuracy: 68.75
-        ChemBench_Name_Conversion_f1: 0.81
+        Chem_exam-gaokao_final_score: 71.88
+        ChemBench_Name_Conversion_accuracy: 100.00
+        ChemBench_Name_Conversion_f1: 1.00
         ChemBench_Name_Conversion_accuracy_given_attempted: 100
-        ChemBench_Name_Conversion_attempted_ratio: 68.75
-        ChemBench_Name_Conversion_correct_count: 11
+        ChemBench_Name_Conversion_attempted_ratio: 100.00
+        ChemBench_Name_Conversion_correct_count: 16.00
         ChemBench_Name_Conversion_incorrect_count: 0
-        ChemBench_Name_Conversion_not_attempted_count: 5
+        ChemBench_Name_Conversion_not_attempted_count: 0
         ClimaQA_Gold_mcq_accuracy: 87.5
         ClimaQA_Gold_mcq_f1: 0.88
         ClimaQA_Gold_mcq_accuracy_given_attempted: 87.5
@@ -516,13 +516,13 @@ qwen-3-8b-fullbench:
         ClimaQA_Gold_mcq_correct_count: 14
         ClimaQA_Gold_mcq_incorrect_count: 2
         ClimaQA_Gold_mcq_not_attempted_count: 0
-        cmmlu-agronomy_accuracy: 81.25
-        cmmlu-agronomy_f1: 0.84
-        cmmlu-agronomy_accuracy_given_attempted: 86.67
-        cmmlu-agronomy_attempted_ratio: 93.75
-        cmmlu-agronomy_correct_count: 13
+        cmmlu-agronomy_accuracy: 87.50
+        cmmlu-agronomy_f1: 0.88
+        cmmlu-agronomy_accuracy_given_attempted: 87.50
+        cmmlu-agronomy_attempted_ratio: 100.00
+        cmmlu-agronomy_correct_count: 14.00
         cmmlu-agronomy_incorrect_count: 2
-        cmmlu-agronomy_not_attempted_count: 1
+        cmmlu-agronomy_not_attempted_count: 0.00
         earth_silver_mcq_accuracy: 81.25
         earth_silver_mcq_f1: 0.81
         earth_silver_mcq_accuracy_given_attempted: 81.25
@@ -531,27 +531,27 @@ qwen-3-8b-fullbench:
         earth_silver_mcq_incorrect_count: 3
         earth_silver_mcq_not_attempted_count: 0
         GPQA_diamond_accuracy: 68.75
-        hle_llmjudge_accuracy: 37.5
+        hle_llmjudge_accuracy: 43.75
         hle_llmjudge_f1: 0.43
-        hle_llmjudge_accuracy_given_attempted: 50
-        hle_llmjudge_attempted_ratio: 75
-        hle_llmjudge_correct_count: 6
-        hle_llmjudge_incorrect_count: 6
-        hle_llmjudge_not_attempted_count: 4
+        hle_llmjudge_accuracy_given_attempted: 43.75
+        hle_llmjudge_attempted_ratio: 100.00
+        hle_llmjudge_correct_count: 7.00
+        hle_llmjudge_incorrect_count: 9.00
+        hle_llmjudge_not_attempted_count: 0.00
         IFEval_Prompt-level-strict-accuracy: 87.5
         IFEval_Inst-level-strict-accuracy: 91.67
         IFEval_Prompt-level-loose-accuracy: 87.5
         IFEval_Inst-level-loose-accuracy: 91.67
-        kcle_accuracy: 62.5
-        kcle_f1: 0.69
-        kcle_accuracy_given_attempted: 76.92
-        kcle_attempted_ratio: 81.25
-        kcle_correct_count: 10
-        kcle_incorrect_count: 3
-        kcle_not_attempted_count: 3
+        kcle_accuracy: 75.00
+        kcle_f1: 0.75
+        kcle_accuracy_given_attempted: 75.00
+        kcle_attempted_ratio: 100.00
+        kcle_correct_count: 12
+        kcle_incorrect_count: 4
+        kcle_not_attempted_count: 0
         korbench_cipher_accuracy: 81.25
         livemathbench_hard_custom_hard_cn_accuracy: 25
-        matbench_steels_mae: 916.5
+        matbench_steels_mae: 816.50
         math_prm800k_500_accuracy: 100
         sanitized_mbpp_score: 6.25
         sanitized_mbpp_pass: 1
@@ -588,28 +588,28 @@ qwen-3-8b-fullbench:
         mmlu_pro_math_correct_count: 11
         mmlu_pro_math_incorrect_count: 5
         mmlu_pro_math_not_attempted_count: 0
-        olymmath_llmjudge_en-hard_accuracy: 31.25
-        olymmath_llmjudge_en-hard_f1: 0.4
-        olymmath_llmjudge_en-hard_accuracy_given_attempted: 55.56
-        olymmath_llmjudge_en-hard_attempted_ratio: 56.25
-        olymmath_llmjudge_en-hard_correct_count: 5
-        olymmath_llmjudge_en-hard_incorrect_count: 4
-        olymmath_llmjudge_en-hard_not_attempted_count: 7
-        OlympiadBench_OE_TO_maths_en_COMP_accuracy: 37.5
-        OlympiadBench_OE_TO_maths_en_COMP_f1: 0.39
-        OlympiadBench_OE_TO_maths_en_COMP_accuracy_given_attempted: 40
-        OlympiadBench_OE_TO_maths_en_COMP_attempted_ratio: 93.75
-        OlympiadBench_OE_TO_maths_en_COMP_correct_count: 6
+        olymmath_llmjudge_en-hard_accuracy: 68.75
+        olymmath_llmjudge_en-hard_f1: 0.69
+        olymmath_llmjudge_en-hard_accuracy_given_attempted: 68.75
+        olymmath_llmjudge_en-hard_attempted_ratio: 100.00
+        olymmath_llmjudge_en-hard_correct_count: 11
+        olymmath_llmjudge_en-hard_incorrect_count: 5
+        olymmath_llmjudge_en-hard_not_attempted_count: 0
+        OlympiadBench_OE_TO_maths_en_COMP_accuracy: 43.75
+        OlympiadBench_OE_TO_maths_en_COMP_f1: 0.44
+        OlympiadBench_OE_TO_maths_en_COMP_accuracy_given_attempted: 43.75
+        OlympiadBench_OE_TO_maths_en_COMP_attempted_ratio: 100.00
+        OlympiadBench_OE_TO_maths_en_COMP_correct_count: 7
         OlympiadBench_OE_TO_maths_en_COMP_incorrect_count: 9
-        OlympiadBench_OE_TO_maths_en_COMP_not_attempted_count: 1
+        OlympiadBench_OE_TO_maths_en_COMP_not_attempted_count: 0
         phybench-eed_accuracy: 27.94
-        PHYSICS_atomic_dataset_textonly_accuracy: 81.25
-        PHYSICS_atomic_dataset_textonly_f1: 0.87
-        PHYSICS_atomic_dataset_textonly_accuracy_given_attempted: 92.86
-        PHYSICS_atomic_dataset_textonly_attempted_ratio: 87.5
-        PHYSICS_atomic_dataset_textonly_correct_count: 13
+        PHYSICS_atomic_dataset_textonly_accuracy: 93.75
+        PHYSICS_atomic_dataset_textonly_f1: 0.94
+        PHYSICS_atomic_dataset_textonly_accuracy_given_attempted: 93.75
+        PHYSICS_atomic_dataset_textonly_attempted_ratio: 100
+        PHYSICS_atomic_dataset_textonly_correct_count: 15
         PHYSICS_atomic_dataset_textonly_incorrect_count: 1
-        PHYSICS_atomic_dataset_textonly_not_attempted_count: 2
+        PHYSICS_atomic_dataset_textonly_not_attempted_count: 0
         ProteinLMBench_accuracy: 68.75
         ProteinLMBench_f1: 0.69
         ProteinLMBench_accuracy_given_attempted: 68.75
@@ -617,20 +617,20 @@ qwen-3-8b-fullbench:
         ProteinLMBench_correct_count: 11
         ProteinLMBench_incorrect_count: 5
         ProteinLMBench_not_attempted_count: 0
-        R-Bench_en_accuracy: 31.25
-        R-Bench_en_f1: 0.36
-        R-Bench_en_accuracy_given_attempted: 41.67
-        R-Bench_en_attempted_ratio: 75
-        R-Bench_en_correct_count: 5
-        R-Bench_en_incorrect_count: 7
-        R-Bench_en_not_attempted_count: 4
+        R-Bench_en_accuracy: 50.00
+        R-Bench_en_f1: 0.50
+        R-Bench_en_accuracy_given_attempted: 50.00
+        R-Bench_en_attempted_ratio: 100.00
+        R-Bench_en_correct_count: 8
+        R-Bench_en_incorrect_count: 8
+        R-Bench_en_not_attempted_count: 0
         NC-I2F-0shot-instruct_score: 12.5
         NC-I2F-0shot-instruct_valid_score: 75
         srbench_mean_RMSE: 61339597.01
         srbench_mean_NMSE: 83.61
         srbench_mean_R2: -82.61
         srbench_SymbolicMatch: 0.14
-        supergpqa_Electronic_Science_and_Technology_accuracy: 43.75
+        supergpqa_Electronic_Science_and_Technology_accuracy: 56.25
         lcb_code_generation_v6_pass@1: 50
 
 

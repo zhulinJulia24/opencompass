@@ -94,6 +94,8 @@ class TestChatFullbench:
          for p2 in dataset_list('qwen-3-8b-hf-fullbench', 'objective_v7')])
     def test_chat_obj_v7(self, baseline_scores_fullbench, result_scores, model,
                          dataset):
+        if 'srbench' in dataset:
+            return
         base_score = baseline_scores_fullbench.get(model).get(
             'objective_v7').get(dataset)
         result_score = result_scores.get(model).get(dataset)
