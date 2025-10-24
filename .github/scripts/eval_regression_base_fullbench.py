@@ -97,7 +97,9 @@ GaokaoBench_datasets = [
     x for x in GaokaoBench_datasets if '2010-2022_Math_II_MCQs' in x['abbr']
     or '2010-2022_Math_II_Fill-in-the-Blank' in x['abbr']
 ]
-datasets = sum((v for k, v in locals().items() if k.endswith('_datasets')), [])
+datasets = sum((v for k, v in locals().items()
+                if k.endswith('_datasets') and 'dingo' not in k.lower()), [])
+datasets += dingo_datasets
 
 summary_groups = sum(
     [v for k, v in locals().items() if k.endswith('_summary_groups')], [])
