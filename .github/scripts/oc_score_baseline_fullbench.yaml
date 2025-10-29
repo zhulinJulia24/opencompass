@@ -634,7 +634,7 @@ qwen-3-8b-fullbench:
         lcb_code_generation_v6_pass@1: 50
     chat_longtext: 
         babilong_qa1_256k_score: 0.00
-        LongBench_2wikimqa_score: 5.38
+        LongBench_2wikimqa_score: 5.45
         Length16000Depth0_2needle_en_128k_score: 100.00
         ruler_cwe_128k_score: 0.00
 
@@ -644,7 +644,54 @@ qwen3-8b-base-turbomind:
         LongBench_2wikimqa_score: 26.98
         Length32000Depth0_origin_en_32000_score: 100.00
 
-
 qwen-3-8b-base-hf-fullbench:
     objective_base:
-        
+        race-high_accuracy: 87.5
+        ARC-c_accuracy: 75
+        BoolQ_accuracy: 75
+        triviaqa_wiki_1shot_score: 37.5
+        nq_open_1shot_score: 6.25
+        drop_accuracy: 75
+        GPQA_diamond_accuracy: 81.25
+        hellaswag_accuracy: 81.25
+        TheoremQA_score: 18.75
+        winogrande_accuracy: 81.25
+        gsm8k_accuracy: 81.25
+        GaokaoBench_2010-2022_Math_II_MCQs_score: 93.75
+        GaokaoBench_2010-2022_Math_II_Fill-in-the-Blank_score: 0
+        math_accuracy: 87.5
+        wikibench-wiki-single_choice_cncircular_perf_4: 50
+        sanitized_mbpp_score: 93.75
+        mmlu-other_accuracy: 76.44
+        cmmlu-china-specific_accuracy: 82.5
+        mmlu_pro_math_accuracy: 50
+        bbh-logical_deduction_seven_objects_score: 37.5
+        bbh-multistep_arithmetic_two_score: 0
+        college_naive_average: 37.5
+        college_knowledge_naive_average: 87.5
+
+qwen-3-8b-base-fullbench:
+    objective_base:
+        race-high_accuracy: 87.5
+        ARC-c_accuracy: 75
+        BoolQ_accuracy: 81.25
+        triviaqa_wiki_1shot_score: 37.5
+        nq_open_1shot_score: 6.25
+        drop_accuracy: 81.25
+        GPQA_diamond_accuracy: 81.25
+        hellaswag_accuracy: 75
+        TheoremQA_score: 18.75
+        winogrande_accuracy: 81.25
+        gsm8k_accuracy: 81.25
+        GaokaoBench_2010-2022_Math_II_MCQs_score: 100
+        GaokaoBench_2010-2022_Math_II_Fill-in-the-Blank_score: 0
+        math_accuracy: 81.25
+        wikibench-wiki-single_choice_cncircular_perf_4: 50
+        sanitized_mbpp_score: 93.75
+        mmlu-other_accuracy: 75.48
+        cmmlu-china-specific_accuracy: 83.75
+        mmlu_pro_math_accuracy: 50
+        bbh-logical_deduction_seven_objects_score: 62.5
+        bbh-multistep_arithmetic_two_score: 100
+        college_naive_average: 37.5
+        college_knowledge_naive_average: 87.5
