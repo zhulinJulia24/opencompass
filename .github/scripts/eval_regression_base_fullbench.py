@@ -22,10 +22,10 @@ with read_base():
         gsm8k_datasets  # noqa: F401, E501
     from opencompass.configs.datasets.hellaswag.hellaswag_10shot_ppl_59c85e import \
         hellaswag_datasets  # noqa: F401, E501
-    from opencompass.configs.datasets.humaneval.internal_humaneval_gen_ce6b06 import \
-        humaneval_datasets as humaneval_v2_datasets  # noqa: F401, E501
-    from opencompass.configs.datasets.humaneval.internal_humaneval_gen_d2537e import \
-        humaneval_datasets  # noqa: F401, E501
+    # from opencompass.configs.datasets.humaneval.internal_humaneval_gen_ce6b06 import \ # noqa: F401, E501
+    #    humaneval_datasets as humaneval_v2_datasets  # noqa: F401, E501
+    # from opencompass.configs.datasets.humaneval.internal_humaneval_gen_d2537e import \ # noqa: F401, E501
+    #    humaneval_datasets  # noqa: F401, E501
     from opencompass.configs.datasets.math.math_4shot_base_gen_43d5b6 import \
         math_datasets  # noqa: F401, E501
     from opencompass.configs.datasets.MathBench.mathbench_2024_few_shot_mixed_4a3fd4 import \
@@ -67,7 +67,6 @@ with read_base():
     from ...rjob import eval, infer  # noqa: F401, E501
 
 race_datasets = [race_datasets[1]]  # Only take RACE-High
-humaneval_v2_datasets[0]['abbr'] = 'openai_humaneval_v2'
 bbh_datasets = [
     x for x in bbh_datasets if 'logical_deduction_seven_objects' in x['abbr']
     or 'multistep_arithmetic_two' in x['abbr']

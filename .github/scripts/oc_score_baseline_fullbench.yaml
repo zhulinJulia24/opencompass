@@ -643,3 +643,8 @@ qwen3-8b-base-turbomind:
     base_longtext: 
         LongBench_2wikimqa_score: 26.98
         Length32000Depth0_origin_en_32000_score: 100.00
+
+
+qwen-3-8b-base-hf-fullbench:
+    objective_base:
+        
