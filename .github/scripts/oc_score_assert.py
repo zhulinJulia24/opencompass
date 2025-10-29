@@ -132,13 +132,13 @@ class TestBaseFullbench:
     @pytest.mark.parametrize('model, dataset', [
         (p1, p2)
         for p1 in ['qwen-3-8b-base-hf-fullbench', 'qwen-3-8b-base-fullbench']
-        for p2 in dataset_list('qwen-3-8b-base-hf-fullbench', 'base_longtext')
+        for p2 in dataset_list('qwen-3-8b-base-hf-fullbench', 'objective_base')
     ])
     @pytest.mark.base_fullbench
     def test_objective_base(self, baseline_scores_fullbench, result_scores,
                             model, dataset):
         base_score = baseline_scores_fullbench.get(model).get(
-            'base_longtext').get(dataset)
+            'objective_base').get(dataset)
         result_score = result_scores.get(model).get(dataset)
         assert_score(model, result_score, base_score, dataset)
 

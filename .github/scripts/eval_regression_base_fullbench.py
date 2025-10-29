@@ -9,8 +9,6 @@ with read_base():
         bbh_datasets  # noqa: F401, E501
     from opencompass.configs.datasets.cmmlu.cmmlu_ppl_041cbf import \
         cmmlu_datasets  # noqa: F401, E501
-    from opencompass.configs.datasets.dingo.dingo_gen import \
-        datasets as dingo_datasets  # noqa: F401, E501
     from opencompass.configs.datasets.drop.drop_gen_a2697c import \
         drop_datasets  # noqa: F401, E501
     from opencompass.configs.datasets.GaokaoBench.GaokaoBench_no_subjective_gen_d21e37 import \
@@ -98,7 +96,6 @@ GaokaoBench_datasets = [
 ]
 datasets = sum((v for k, v in locals().items()
                 if k.endswith('_datasets') and 'dingo' not in k.lower()), [])
-datasets += dingo_datasets
 
 summary_groups = sum(
     [v for k, v in locals().items() if k.endswith('_summary_groups')], [])
