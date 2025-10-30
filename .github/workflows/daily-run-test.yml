@@ -17,7 +17,7 @@ on:
         required: true
         description: 'regression functions'
         type: string
-        default: "['chat_models','base_models','chat_obj_fullbench_v5', 'chat_obj_fullbench_v6', 'chat_obj_fullbench_v7', 'chat_obj_fullbench_other','chat_sub_fullbench','base_fullbench','base_longtext_fullbench','chat_longtext_fullbench']"
+        default: "['cmd', 'chat_models','base_models','chat_obj_fullbench_v5', 'chat_obj_fullbench_v6', 'chat_obj_fullbench_v7', 'chat_obj_fullbench_other','chat_sub_fullbench','base_fullbench','base_longtext_fullbench','chat_longtext_fullbench']"
       baseline_result:
         required: true
         description: 'baseline result'
@@ -46,7 +46,7 @@ env:
   VLLM_WORKER_MULTIPROC_METHOD: spawn
   KUBEBRAIN_CLUSTER_ENTRY: https://h.pjlab.org.cn
   KUBEBRAIN_NAMESPACE: ailab-opencompass
-  JOB_NAME: daily-test-${{ github.run_id }}
+  JOB_NAME: daily-test-${{ github.run_id }}-${{ github.run_attempt }}
   BASELINE_DIR: ${{github.event.inputs.baseline_result || '0.5.0-baseline' }}
 
 jobs:
@@ -192,3 +192,62 @@ jobs:
         run: |
           sudo chmod -R 777 .
 
+
+  daily_run_cmd:
+    if: ${{!cancelled() && contains(needs.prepare_env.result, 'success') && contains(fromJSON(github.event.inputs.regression_func), 'cmd')}}
+    needs: prepare_env
+    runs-on: yidian_cu12_daily
+    timeout-minutes: 240 #4hours
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v5
+        with:
+          repository: ${{ github.event.inputs.repo_org || 'open-compass/opencompass' }}
+          ref: ${{github.event.inputs.repo_ref || 'main'}}
+      - name: conda env 
+        run: |
+          . ${{env.CONDA_PATH}}/bin/activate
+          conda activate ${{env.CONDA_ENV}}
+          conda info --envs
+          pip list
+      - name: Run test
+        run: |
+          . ${{env.CONDA_PATH}}/bin/activate
+          conda activate ${{env.CONDA_ENV}}
+          conda info --envs
+          rjob submit --name=${{ env.JOB_NAME }} --charged-group=opencompass_gpu --private-machine=group --group=opencompass_gpu --gpu=2 --cpu=32 --memory=32568 --private-machine=group --image=registry.h.pjlab.org.cn/ailab-puyu/xpuyu:torch-2.6.0-45d96d5f-0607 --env=COMPASS_DATA_CACHE=/mnt/shared-storage-user/auto-eval-pipeline/opencompass/llmeval/compass_data_cache --env=TIKTOKEN_CACHE_DIR=/mnt/shared-storage-user/auto-eval-pipeline/opencompass/llmeval/share_tiktoken --env=HF_ENDPOINT=https://hf-mirror.com --env=HF_DATASETS_CACHE=/mnt/shared-storage-user/auto-eval-pipeline/opencompass/llmeval/hf_cache --env=HF_HUB_CACHE=/mnt/shared-storage-user/large-model-center-share-weights/hf_hub --env=CUDA_MODULE_LOADING=EAGER --env=HF_DATASETS_OFFLINE=1 --env=TRANSFORMERS_OFFLINE=1 --env=HF_EVALUATE_OFFLINE=1 --env=HF_HUB_OFFLINE=1 --mount=gpfs://gpfs1/opencompass-shared:/mnt/shared-storage-user/opencompass-shared --mount=gpfs://gpfs1/auto-eval-pipeline:/mnt/shared-storage-user/auto-eval-pipeline --mount=gpfs://gpfs1/large-model-center-share-weights:/mnt/shared-storage-user/large-model-center-share-weights --host-network=True -- bash -exc '/mnt/shared-storage-user/opencompass-shared/qa-llm-cicd/daily_cmd_test.sh ${{env.REPORT_ROOT}}/${{ github.run_id }}'
+
+          for i in {1..300}; do
+            current_status=$(rjob get ${{ env.JOB_NAME }} | grep -oP 'rjob [^:]+: \K[^ ]+')
+            if [[ $current_status == "Succeeded" ]]; then
+              echo "task succeed"
+              break
+            elif [[ $current_status == "Failed"]]; then
+              echo "task failed"
+              rjob logs job ${{ env.JOB_NAME }}
+              exit 1
+            elif [[ $current_status == "Stopped" ]]; then
+              echo "task stopped"
+              exit 1
+            fi
+            sleep 6
+          done
+      - name:  Assert result
+        run: |
+          . ${{env.CONDA_PATH}}/bin/activate
+          conda activate ${{env.CONDA_ENV}}
+          conda info --envs
+          rm regression_result_daily -f && ln -s ${{env.REPORT_ROOT}}/${{ github.run_id }}/cmd1/*/summary regression_result_daily
+          python -m pytest -m case1 -s -v --color=yes .github/scripts/oc_score_assert.py
+          rm regression_result_daily -f && ln -s ${{env.REPORT_ROOT}}/${{ github.run_id }}/cmd2/*/summary regression_result_daily
+          python -m pytest -m case2 -s -v --color=yes .github/scripts/oc_score_assert.py
+          rm regression_result_daily -f && ln -s ${{env.REPORT_ROOT}}/${{ github.run_id }}/cmd3/*/summary regression_result_daily
+          python -m pytest -m case3 -s -v --color=yes .github/scripts/oc_score_assert.py
+          rm regression_result_daily -f && ln -s ${{env.REPORT_ROOT}}/${{ github.run_id }}/cmd4/*/summary regression_result_daily
+          python -m pytest -m case4 -s -v --color=yes .github/scripts/oc_score_assert.py
+          rm regression_result_daily -f && ln -s ${{env.REPORT_ROOT}}/${{ github.run_id }}/cmd5/*/summary regression_result_daily
+          python -m pytest -m case5 -s -v --color=yes .github/scripts/oc_score_assert.py
+      - name: Change code permission
+        if: always()
+        run: |
+          sudo chmod -R 777 .
