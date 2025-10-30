@@ -120,7 +120,7 @@ class TestChatFullbench:
     def test_chat_longtext(self, baseline_scores_fullbench, result_scores,
                            model, dataset):
         base_score = baseline_scores_fullbench.get(model).get(
-            'chat_longtext_fullbench').get(dataset)
+            'chat_longtext').get(dataset)
         result_score = result_scores.get(model).get(dataset)
         assert_score(model, result_score, base_score, dataset)
 
