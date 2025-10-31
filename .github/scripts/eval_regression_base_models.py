@@ -1,5 +1,7 @@
 from mmengine.config import read_base
 
+from opencompass.models import VLLM, HuggingFaceBaseModel, TurboMindModel
+
 with read_base():
     # choose a list of datasets
     from opencompass.configs.datasets.gpqa.gpqa_openai_simple_evals_gen_5aeece import \
@@ -10,26 +12,43 @@ with read_base():
         race_datasets  # noqa: F401, E501
     from opencompass.configs.datasets.winogrande.winogrande_5shot_ll_252f01 import \
         winogrande_datasets  # noqa: F401, E501
-    # read hf models - chat models
-    from opencompass.configs.models.chatglm.lmdeploy_glm4_9b import \
-        models as lmdeploy_glm4_9b_model  # noqa: F401, E501
-    from opencompass.configs.models.deepseek.hf_deepseek_7b_base import \
-        models as hf_deepseek_7b_base_model  # noqa: F401, E501
-    from opencompass.configs.models.deepseek.lmdeploy_deepseek_7b_base import \
-        models as lmdeploy_deepseek_7b_base_model  # noqa: F401, E501
-    from opencompass.configs.models.deepseek.lmdeploy_deepseek_67b_base import \
-        models as lmdeploy_deepseek_67b_base_model  # noqa: F401, E501
-    from opencompass.configs.models.deepseek.lmdeploy_deepseek_v2 import \
-        lmdeploy_deepseek_v2_model  # noqa: F401, E501
-    from opencompass.configs.models.deepseek.vllm_deepseek_moe_16b_base import \
-        models as vllm_deepseek_moe_16b_base_model  # noqa: F401, E501
-    from opencompass.configs.models.gemma.hf_gemma2_2b import \
-        models as hf_gemma2_2b_model  # noqa: F401, E501
 
     from ...rjob import eval, infer  # noqa: F401, E501
 
 race_datasets = [race_datasets[1]]
-models = sum([v for k, v in locals().items() if k.endswith('_model')], [])
+models = [
+    dict(
+        type=TurboMindModel,
+        abbr='qwen3-8b-base-turbomind',
+        path='Qwen/Qwen3-0.6B-Base',
+        engine_config=dict(max_batch_size=1, tp=1),
+        gen_config=dict(top_k=1,
+                        temperature=1e-6,
+                        top_p=0.9,
+                        max_new_tokens=2048),
+        max_seq_len=8192,
+        max_out_len=2048,
+        batch_size=1,
+        run_cfg=dict(num_gpus=1),
+    ),
+    dict(
+        type=VLLM,
+        abbr='qwen3-8b-base-vllm',
+        path='Qwen/Qwen3-0.6B-Base',
+        model_kwargs=dict(tensor_parallel_size=1, gpu_memory_utilization=0.6),
+        max_seq_len=8192,
+        max_out_len=2048,
+        batch_size=16,
+        generation_kwargs=dict(temperature=0),
+        run_cfg=dict(num_gpus=1),
+    ),
+    dict(type=HuggingFaceBaseModel,
+         abbr='qwen3-8b-base-hf',
+         path='Qwen/Qwen3-0.6B-Base',
+         max_out_len=1024,
+         batch_size=4,
+         run_cfg=dict(num_gpus=1))
+]
 datasets = sum([v for k, v in locals().items() if k.endswith('_datasets')], [])
 
 for d in datasets:

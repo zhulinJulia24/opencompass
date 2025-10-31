@@ -48,6 +48,7 @@ env:
   KUBEBRAIN_NAMESPACE: ailab-opencompass
   JOB_NAME: daily-test-${{ github.run_id }}-${{ github.run_attempt }}
   BASELINE_DIR: ${{github.event.inputs.baseline_result || '0.5.0-baseline' }}
+  WORK_PATH: /mnt/shared-storage-user/opencompass-shared/qa-llm-cicd/daily_workdir/opencompass/opencompass
 
 jobs:
   build-pypi:
