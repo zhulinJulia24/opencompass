@@ -42,7 +42,6 @@ Qwen3_0_6B_FP8_vllm = dict(
     max_out_len=16384,
     batch_size=16,
     run_cfg=dict(num_gpus=1),
-    generation_kwargs=dict(temperature=0),
 )
 
 race_datasets = [race_datasets[1]]
