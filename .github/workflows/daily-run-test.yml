@@ -114,15 +114,15 @@ jobs:
             export PIP_CACHE_DIR=${{env.PIP_CACHE_DIR}}
             rm -rf ${{env.TMPDIR}} && mkdir -p ${{env.TMPDIR}}
             export TMPDIR=${{env.TMPDIR}}
-            pip install -r /mnt/shared-storage-user/opencompass-shared/qa-llm-cicd/config/requirements.txt -i https://pkg.pjlab.org.cn/repository/pypi-proxy/simple/ --trusted-host pkg.pjlab.org.cn
-            pip install opencompass*.whl -i https://pkg.pjlab.org.cn/repository/pypi-proxy/simple/ --trusted-host pkg.pjlab.org.cn
-            pip install opencompass[lmdeploy] -i https://pkg.pjlab.org.cn/repository/pypi-proxy/simple/ --trusted-host pkg.pjlab.org.cn 
-            pip install opencompass[vllm] -i https://pkg.pjlab.org.cn/repository/pypi-proxy/simple/ --trusted-host pkg.pjlab.org.cn
-            pip install opencompass[full] -i https://pkg.pjlab.org.cn/repository/pypi-proxy/simple/ --trusted-host pkg.pjlab.org.cn
-            pip install opencompass[api] -i https://pkg.pjlab.org.cn/repository/pypi-proxy/simple/ --trusted-host pkg.pjlab.org.cn
-            pip install xformers -i https://pkg.pjlab.org.cn/repository/pypi-proxy/simple/ --trusted-host pkg.pjlab.org.cn
-            pip install torch==2.8.0 torchvision==0.23.0 torchaudio==2.8.0 -i https://pkg.pjlab.org.cn/repository/pypi-proxy/simple/ --trusted-host pkg.pjlab.org.cn
-            pip install transformers==4.57.0 -i https://pkg.pjlab.org.cn/repository/pypi-proxy/simple/ --trusted-host pkg.pjlab.org.cn
+            pip install -r /mnt/shared-storage-user/opencompass-shared/qa-llm-cicd/config/requirements.txt -i https://pkg.pjlab.org.cn/repository/pypi-proxy/simple/ --trusted-host pkg.pjlab.org.cn --no-cache-dir
+            pip install opencompass*.whl -i https://pkg.pjlab.org.cn/repository/pypi-proxy/simple/ --trusted-host pkg.pjlab.org.cn --no-cache-dir
+            pip install opencompass[lmdeploy] -i https://pkg.pjlab.org.cn/repository/pypi-proxy/simple/ --trusted-host pkg.pjlab.org.cn --no-cache-dir
+            pip install opencompass[vllm] -i https://pkg.pjlab.org.cn/repository/pypi-proxy/simple/ --trusted-host pkg.pjlab.org.cn --no-cache-dir
+            pip install opencompass[full] -i https://pkg.pjlab.org.cn/repository/pypi-proxy/simple/ --trusted-host pkg.pjlab.org.cn --no-cache-dir
+            pip install opencompass[api] -i https://pkg.pjlab.org.cn/repository/pypi-proxy/simple/ --trusted-host pkg.pjlab.org.cn --no-cache-dir
+            pip install xformers -i https://pkg.pjlab.org.cn/repository/pypi-proxy/simple/ --trusted-host pkg.pjlab.org.cn --no-cache-dir
+            pip install torch==2.8.0 torchvision==0.23.0 torchaudio==2.8.0 -i https://pkg.pjlab.org.cn/repository/pypi-proxy/simple/ --trusted-host pkg.pjlab.org.cn --no-cache-dir
+            pip install transformers==4.57.0 -i https://pkg.pjlab.org.cn/repository/pypi-proxy/simple/ --trusted-host pkg.pjlab.org.cn --no-cache-dir
             FLASH_ATTENTION_FORCE_BUILD=TRUE pip install /mnt/shared-storage-user/opencompass-shared/qa-llm-cicd/packages/flash_attn-2.8.3+cu12torch2.8cxx11abiFALSE-cp310-cp310-linux_x86_64.whl
             cp -r /mnt/shared-storage-user/opencompass-shared/qa-llm-cicd/packages/nltk_data /mnt/shared-storage-user/opencompass-shared/qa-llm-cicd/miniconda3/envs/regression_test
       - name: conda env
