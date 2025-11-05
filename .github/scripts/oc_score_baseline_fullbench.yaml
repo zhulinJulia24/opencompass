@@ -314,7 +314,39 @@ qwen-3-8b-hf-fullbench:
         srbench_SymbolicMatch: 0.18
         supergpqa_Electronic_Science_and_Technology_accuracy: 68.75
         lcb_code_generation_v6_pass@1: 37.5
-
+    chat_subjective:
+        alignment_bench_v1_1_总分: 0.46
+        arenahard_score: 100
+        Followbench_naive_average: 1
+        mtbench101_avg: 9
+        wildbench_average: 66.72
+        simpleqa_accuracy_given_attempted: 0.73
+        chinese_simpleqa_given_attempted_accuracy: 0.5
+        alignment_bench_v1_1_专业能力: 5.56
+        alignment_bench_v1_1_数学计算: 0
+        alignment_bench_v1_1_基本任务: 0
+        alignment_bench_v1_1_逻辑推理: 0
+        alignment_bench_v1_1_中文理解: 0
+        alignment_bench_v1_1_文本写作: 0
+        alignment_bench_v1_1_角色扮演: 0
+        alignment_bench_v1_1_综合问答: 0
+        compassarena_language_naive_average: 52.63
+        compassarena_knowledge_naive_average: 85
+        compassarena_reason_v2_naive_average: 50
+        compassarena_creationv2_zh_naive_average: 95
+        followbench_llmeval_en_HSR_AVG: 1
+        followbench_llmeval_en_SSR_AVG: 1
+        followbench_llmeval_en_HSR_L1: 1
+        followbench_llmeval_en_HSR_L2: 1
+        followbench_llmeval_en_HSR_L3: 1
+        followbench_llmeval_en_HSR_L4: 1
+        followbench_llmeval_en_HSR_L5: 1
+        followbench_llmeval_en_SSR_L1: 1
+        followbench_llmeval_en_SSR_L2: 1
+        followbench_llmeval_en_SSR_L3: 1
+        followbench_llmeval_en_SSR_L4: 1
+        followbench_llmeval_en_SSR_L5: 1
+        simpleqa_f1: 0.62
 
 qwen-3-8b-fullbench:
     objective_other:
@@ -637,7 +669,39 @@ qwen-3-8b-fullbench:
         LongBench_2wikimqa_score: 5.45
         Length16000Depth0_2needle_en_128k_score: 100.00
         ruler_cwe_128k_score: 0.00
-
+    chat_subjective:
+        alignment_bench_v1_1_总分: 0.48
+        arenahard_score: 92.07
+        Followbench_naive_average: 1
+        mtbench101_avg: 8.7
+        wildbench_average: 75.17
+        simpleqa_accuracy_given_attempted: 0.55
+        chinese_simpleqa_given_attempted_accuracy: 0.64
+        alignment_bench_v1_1_专业能力: 5.81
+        alignment_bench_v1_1_数学计算: 0
+        alignment_bench_v1_1_基本任务: 0
+        alignment_bench_v1_1_逻辑推理: 0
+        alignment_bench_v1_1_中文理解: 0
+        alignment_bench_v1_1_文本写作: 0
+        alignment_bench_v1_1_角色扮演: 0
+        alignment_bench_v1_1_综合问答: 0
+        compassarena_language_naive_average: 55
+        compassarena_knowledge_naive_average: 100
+        compassarena_reason_v2_naive_average: 78.95
+        compassarena_creationv2_zh_naive_average: 100
+        followbench_llmeval_en_HSR_AVG: 1
+        followbench_llmeval_en_SSR_AVG: 1
+        followbench_llmeval_en_HSR_L1: 1
+        followbench_llmeval_en_HSR_L2: 1
+        followbench_llmeval_en_HSR_L3: 1
+        followbench_llmeval_en_HSR_L4: 1
+        followbench_llmeval_en_HSR_L5: 1
+        followbench_llmeval_en_SSR_L1: 1
+        followbench_llmeval_en_SSR_L2: 1
+        followbench_llmeval_en_SSR_L3: 1
+        followbench_llmeval_en_SSR_L4: 1
+        followbench_llmeval_en_SSR_L5: 1
+        simpleqa_f1: 0.46
 
 qwen3-8b-base-turbomind:
     base_longtext: 

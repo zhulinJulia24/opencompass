@@ -59,6 +59,45 @@ def result_scores():
 
 
 @pytest.mark.usefixtures('result_scores')
+@pytest.mark.usefixtures('baseline_scores_testrange')
+@pytest.mark.chat_models
+class TestChat:
+    """Test cases for chat model."""
+
+    @pytest.mark.parametrize(
+        'model, dataset', [(p1, p2) for p1 in model_list('chat')
+                           for p2 in ['gsm8k_accuracy', 'race-high_accuracy']])
+    def test_model_dataset_score(self, baseline_scores_testrange,
+                                 result_scores, model, dataset):
+        base_score = baseline_scores_testrange.get('chat').get(model).get(
+            dataset)
+        result_score = result_scores.get(model).get(dataset)
+        assert_score(model, result_score, base_score, dataset)
+
+
+@pytest.mark.usefixtures('result_scores')
+@pytest.mark.usefixtures('baseline_scores_testrange')
+@pytest.mark.base_models
+class TestBase:
+    """Test cases for base model."""
+
+    @pytest.mark.parametrize('model, dataset',
+                             [(p1, p2) for p1 in model_list('base') for p2 in [
+                                 'gsm8k_accuracy', 'GPQA_diamond_accuracy',
+                                 'race-high_accuracy', 'winogrande_accuracy'
+                             ]])
+    def test_model_dataset_score(self, baseline_scores_testrange,
+                                 result_scores, model, dataset):
+        if model in ['gemma-2b-vllm', 'gemma-7b-vllm'
+                     ] and dataset != 'gsm8k_accuracy':
+            return
+        base_score = baseline_scores_testrange.get('base').get(model).get(
+            dataset)
+        result_score = result_scores.get(model).get(dataset)
+        assert_score(model, result_score, base_score, dataset)
+
+
+@pytest.mark.usefixtures('result_scores')
 @pytest.mark.usefixtures('baseline_scores_fullbench')
 class TestChatFullbench:
 
@@ -109,6 +148,18 @@ class TestChatFullbench:
                             model, dataset):
         base_score = baseline_scores_fullbench.get(model).get(
             'objective_other').get(dataset)
+        result_score = result_scores.get(model).get(dataset)
+        assert_score(model, result_score, base_score, dataset)
+
+    @pytest.mark.chat_sub_fullbench
+    @pytest.mark.parametrize(
+        'model, dataset',
+        [(p1, p2) for p1 in ['qwen-3-8b-hf-fullbench', 'qwen-3-8b-fullbench']
+         for p2 in dataset_list('qwen-3-8b-hf-fullbench', 'chat_subjective')])
+    def test_chat_sub_fullbench(self, baseline_scores_fullbench, result_scores,
+                                model, dataset):
+        base_score = baseline_scores_fullbench.get(model).get(
+            'chat_subjective').get(dataset)
         result_score = result_scores.get(model).get(dataset)
         assert_score(model, result_score, base_score, dataset)
 
