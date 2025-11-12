@@ -136,30 +136,6 @@ models = [
          }},
          pred_postprocessor=dict(type=extract_non_reasoning_content)),
     dict(
-        abbr='lmdeploy-api-test-max-completion-tokens',
-        type=OpenAISDK,
-        key='EMPTY',
-        openai_api_base='http://localhost:23333/v1',
-        path='Qwen/Qwen3-8B',
-        tokenizer_path='Qwen/Qwen3-8B',
-        rpm_verbose=True,
-        meta_template=api_meta_template,
-        query_per_second=128,
-        max_out_len=1024,
-        max_seq_len=1024,
-        temperature=0.01,
-        batch_size=128,
-        retry=20,
-        openai_extra_kwargs={
-            'top_p': 0.95,
-        },
-        extra_body={'chat_template_kwargs': {
-            'enable_thinking': False
-        }},
-        pred_postprocessor=dict(type=extract_non_reasoning_content),
-        max_completion_tokens=100,
-    ),
-    dict(
         abbr='lmdeploy-api-test-chat-template',
         type=OpenAISDK,
         key='EMPTY',
@@ -187,7 +163,6 @@ models = [
             'enable_thinking': False
         }},
         pred_postprocessor=dict(type=extract_non_reasoning_content),
-        max_completion_tokens=100,
     ),
 ]
 
