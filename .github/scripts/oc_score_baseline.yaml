@@ -1,7 +1,7 @@
 qwen2.5-7b-hf:
     demo_gsm8k_accuracy: 78.12
     race-middle_accuracy: 90.46
-    race-high_accuracy: 85.54
+    race-high_accuracy: 86.54
 
 internlm3-8b-instruct-lmdeploy:
     demo_gsm8k_accuracy: 75.00
