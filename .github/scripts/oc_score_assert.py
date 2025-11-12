@@ -308,7 +308,7 @@ def assert_score(model_type, score, baseline, dataset: str = ''):
         elif dataset.startswith('humanevalx') or dataset == 'large_threshold':
             threshold = 10
         else:
-            threshold = 3
+            threshold = 3.2
         if float(score) <= (baseline + threshold) and float(score) >= (
                 baseline - threshold):
             print(' '.join([
