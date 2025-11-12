@@ -4,7 +4,7 @@ chat:
         race-high_accuracy: 3.12
     qwen3-0_6b-fp8-turbomind:
         gsm8k_accuracy: 40.62
-        race-high_accuracy: 50.00
+        race-high_accuracy: 50.0
 base:
     qwen3-8b-base-turbomind:
         gsm8k_accuracy: 50.00
@@ -17,7 +17,7 @@ base:
         race-high_accuracy: 59.38
         winogrande_accuracy: 68.75
     qwen3-8b-base-hf:
-        gsm8k_accuracy: 59.38
+        gsm8k_accuracy: 50.00
         GPQA_diamond_accuracy: 18.75
-        race-high_accuracy: 59.38
+        race-high_accuracy: 50.00
         winogrande_accuracy: 53.12

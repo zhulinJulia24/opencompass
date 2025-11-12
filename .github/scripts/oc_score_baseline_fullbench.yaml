@@ -666,7 +666,7 @@ qwen-3-8b-fullbench:
         lcb_code_generation_v6_pass@1: 50
     chat_longtext: 
         babilong_qa1_256k_score: 0.00
-        LongBench_2wikimqa_score: 5.45
+        LongBench_2wikimqa_score: 5.43
         Length16000Depth0_2needle_en_128k_score: 100.00
         ruler_cwe_128k_score: 0.00
     chat_subjective:
