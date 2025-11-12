@@ -256,9 +256,9 @@ class TestCmdCase:
 
     @pytest.mark.case3
     @pytest.mark.parametrize('model, dataset',
-                             [('internlm2_5-7b_hf', 'race-middle_accuracy'),
-                              ('internlm2_5-7b_hf', 'race-high_accuracy'),
-                              ('internlm2_5-7b_hf', 'demo_gsm8k_accuracy')])
+                             [('Qwen2.5-7B_hf', 'race-middle_accuracy'),
+                              ('Qwen2.5-7B_hf', 'race-high_accuracy'),
+                              ('Qwen2.5-7B_hf', 'demo_gsm8k_accuracy')])
     def test_cmd_case3(self, baseline_scores, result_scores, model, dataset):
         base_score = baseline_scores.get(model).get(dataset)
         result_score = result_scores.get(model).get(dataset)
@@ -278,9 +278,9 @@ class TestCmdCase:
     @pytest.mark.case5
     @pytest.mark.parametrize(
         'model, dataset',
-        [('internlm3-8b-instruct_hf-vllm', 'race-middle_accuracy'),
-         ('internlm3-8b-instruct_hf-vllm', 'race-high_accuracy'),
-         ('internlm3-8b-instruct_hf-vllm', 'demo_gsm8k_accuracy')])
+        [('Qwen3-0.6B_hf-vllm', 'race-middle_accuracy'),
+         ('Qwen3-0.6B_hf-vllm', 'race-high_accuracy'),
+         ('Qwen3-0.6B_hf-vllm', 'demo_gsm8k_accuracy')])
     def test_cmd_case5(self, baseline_scores, result_scores, model, dataset):
         base_score = baseline_scores.get(model).get(dataset)
         result_score = result_scores.get(model).get(dataset)

@@ -13,22 +13,12 @@ internlm3-8b-instruct_hf-lmdeploy:
     race-middle_accuracy: 93.38
     race-high_accuracy: 90.34
 
-internlm3-8b-instruct_hf-vllm:
+Qwen2.5-7B_hf:
     demo_gsm8k_accuracy: 78.12
-    race-middle_accuracy: 92.27
-    race-high_accuracy: 89.91
+    race-middle_accuracy: 90.46
+    race-high_accuracy: 86.54
 
-internlm2_5-7b-chat_hf:
-    demo_gsm8k_accuracy: 87.50
-    race-middle_accuracy: 92.76
-    race-high_accuracy: 90.48
-
-lmdeploy-api-test:
-    gsm8k_accuracy: 62.5
-    race-middle_accuracy: 93.75
-    race-high_accuracy: 93.75
-
-lmdeploy-api-streaming-test:
-    gsm8k_accuracy: 62.5
-    race-middle_accuracy: 93.75
-    race-high_accuracy: 93.75
+Qwen3-0.6B_hf-vllm:
+    demo_gsm8k_accuracy: 53.12
+    race-middle_accuracy: 38.23
+    race-high_accuracy: 28.07
