@@ -223,12 +223,12 @@ judge_cfg = dict(
     pred_postprocessor=dict(type=extract_non_reasoning_content),
     mode='mid'),
 
-for item in datasets:
-    if 'judge_cfg' in item['eval_cfg']['evaluator']:
-        item['eval_cfg']['evaluator']['judge_cfg'] = judge_cfg
-    if 'llm_evaluator' in item['eval_cfg']['evaluator'].keys(
-    ) and 'judge_cfg' in item['eval_cfg']['evaluator']['llm_evaluator']:
-        item['eval_cfg']['evaluator']['llm_evaluator']['judge_cfg'] = judge_cfg
+for d in datasets:
+    if 'judge_cfg' in d['eval_cfg']['evaluator']:
+        d['eval_cfg']['evaluator']['judge_cfg'] = judge_cfg
+    if 'llm_evaluator' in d['eval_cfg']['evaluator'] and 'judge_cfg' in d[
+            'eval_cfg']['evaluator']['llm_evaluator']:
+        d['eval_cfg']['evaluator']['llm_evaluator']['judge_cfg'] = judge_cfg
 
 core_summary_groups = [
     {
