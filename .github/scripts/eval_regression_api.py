@@ -208,6 +208,9 @@ core_summary_groups = [
             ['mmlu_pro', 'naive_average'],
             'mmlu_pro_math',
             'mmlu_pro_other',
+            'gsm8k',
+            'race-middle',
+            'race-high',
         ],
     },
 ]
@@ -220,6 +223,9 @@ summarizer = dict(
         ['mmlu_pro', 'naive_average'],
         'mmlu_pro_math',
         'mmlu_pro_other',
+        'gsm8k',
+        'race-middle',
+        'race-high',
     ],
     summary_groups=sum(
         [v

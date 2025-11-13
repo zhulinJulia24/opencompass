@@ -22,3 +22,66 @@ Qwen3-0.6B_hf-vllm:
     demo_gsm8k_accuracy: 53.12
     race-middle_accuracy: 38.23
     race-high_accuracy: 28.07
+
+lmdeploy-api-test:
+    IFEval_Prompt-level-strict-accuracy: 87.50
+    hle_llmjudge_accuracy: 75.00
+    mmlu_pro_math_accuracy: 62.50
+    mmlu_pro_other_accuracy: 50.00
+    race-middle_accuracy: 38.23
+    race-high_accuracy: 28.07
+    gsm8k_accuracy: 53.12
+
+lmdeploy-api-streaming-test:
+    IFEval_Prompt-level-strict-accuracy: 87.50
+    hle_llmjudge_accuracy: 75.00
+    mmlu_pro_math_accuracy: 62.50
+    mmlu_pro_other_accuracy: 50.00
+    race-middle_accuracy: 38.23
+    race-high_accuracy: 28.07
+    gsm8k_accuracy: 53.12
+
+lmdeploy-api-streaming-test-chunk:
+    IFEval_Prompt-level-strict-accuracy: 87.50
+    hle_llmjudge_accuracy: 75.00
+    mmlu_pro_math_accuracy: 62.50
+    mmlu_pro_other_accuracy: 50.00
+    race-middle_accuracy: 38.23
+    race-high_accuracy: 28.07
+    gsm8k_accuracy: 53.12
+
+lmdeploy-api-test-maxlen:
+    IFEval_Prompt-level-strict-accuracy: 87.50
+    hle_llmjudge_accuracy: 75.00
+    mmlu_pro_math_accuracy: 62.50
+    mmlu_pro_other_accuracy: 50.00
+    race-middle_accuracy: 38.23
+    race-high_accuracy: 28.07
+    gsm8k_accuracy: 53.12
+
+lmdeploy-api-test-maxlen-mid:
+    IFEval_Prompt-level-strict-accuracy: 87.50
+    hle_llmjudge_accuracy: 75.00
+    mmlu_pro_math_accuracy: 62.50
+    mmlu_pro_other_accuracy: 50.00
+    race-middle_accuracy: 38.23
+    race-high_accuracy: 28.07
+    gsm8k_accuracy: 53.12
+
+lmdeploy-api-test-nothink:
+    IFEval_Prompt-level-strict-accuracy: 87.50
+    hle_llmjudge_accuracy: 75.00
+    mmlu_pro_math_accuracy: 62.50
+    mmlu_pro_other_accuracy: 50.00
+    race-middle_accuracy: 38.23
+    race-high_accuracy: 28.07
+    gsm8k_accuracy: 53.12
+
+lmdeploy-api-test-chat-template:
+    IFEval_Prompt-level-strict-accuracy: 87.50
+    hle_llmjudge_accuracy: 75.00
+    mmlu_pro_math_accuracy: 62.50
+    mmlu_pro_other_accuracy: 50.00
+    race-middle_accuracy: 38.23
+    race-high_accuracy: 28.07
+    gsm8k_accuracy: 53.12

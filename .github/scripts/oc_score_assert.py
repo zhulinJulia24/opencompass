@@ -212,14 +212,53 @@ class TestBaseFullbench:
 class TestApibench:
     """Test cases for chat model."""
 
-    @pytest.mark.parametrize(
-        'model, dataset',
-        [('lmdeploy-api-test', 'race-middle_accuracy'),
-         ('lmdeploy-api-test', 'race-high_accuracy'),
-         ('lmdeploy-api-test', 'gsm8k_accuracy'),
-         ('lmdeploy-api-streaming-test', 'race-middle_accuracy'),
-         ('lmdeploy-api-streaming-test', 'race-high_accuracy'),
-         ('lmdeploy-api-streaming-test', 'gsm8k_accuracy')])
+    @pytest.mark.parametrize('model, dataset', [
+        ('lmdeploy-api-test', 'race-middle_accuracy'),
+        ('lmdeploy-api-test', 'race-high_accuracy'),
+        ('lmdeploy-api-test', 'gsm8k_accuracy'),
+        ('lmdeploy-api-test', 'IFEval_Prompt-level-strict-accuracy'),
+        ('lmdeploy-api-test', 'hle_llmjudge_accuracy'),
+        ('lmdeploy-api-test', 'mmlu_pro_math_accuracy'),
+        ('lmdeploy-api-test', 'mmlu_pro_other_accuracy'),
+        ('lmdeploy-api-streaming-test', 'race-middle_accuracy'),
+        ('lmdeploy-api-streaming-test', 'race-high_accuracy'),
+        ('lmdeploy-api-streaming-test', 'gsm8k_accuracy'),
+        ('lmdeploy-api-streaming-test', 'IFEval_Prompt-level-strict-accuracy'),
+        ('lmdeploy-api-streaming-test', 'hle_llmjudge_accuracy'),
+        ('lmdeploy-api-streaming-test', 'mmlu_pro_math_accuracy'),
+        ('lmdeploy-api-streaming-test', 'mmlu_pro_other_accuracy'),
+        ('lmdeploy-api-streaming-test-chunk', 'race-middle_accuracy'),
+        ('lmdeploy-api-streaming-test-chunk', 'race-high_accuracy'),
+        ('lmdeploy-api-streaming-test-chunk', 'gsm8k_accuracy'),
+        ('lmdeploy-api-streaming-test-chunk',
+         'IFEval_Prompt-level-strict-accuracy'),
+        ('lmdeploy-api-streaming-test-chunk', 'hle_llmjudge_accuracy'),
+        ('lmdeploy-api-streaming-test-chunk', 'mmlu_pro_math_accuracy'),
+        ('lmdeploy-api-streaming-test-chunk', 'mmlu_pro_other_accuracy'),
+        ('lmdeploy-api-test-maxlen', 'race-middle_accuracy'),
+        ('lmdeploy-api-test-maxlen', 'race-high_accuracy'),
+        ('lmdeploy-api-test-maxlen', 'gsm8k_accuracy'),
+        ('lmdeploy-api-test-maxlen', 'IFEval_Prompt-level-strict-accuracy'),
+        ('lmdeploy-api-test-maxlen', 'hle_llmjudge_accuracy'),
+        ('lmdeploy-api-test-maxlen', 'mmlu_pro_math_accuracy'),
+        ('lmdeploy-api-test-maxlen', 'mmlu_pro_other_accuracy'),
+        ('lmdeploy-api-test-maxlen-mid', 'race-middle_accuracy'),
+        ('lmdeploy-api-test-maxlen-mid', 'race-high_accuracy'),
+        ('lmdeploy-api-test-maxlen-mid', 'gsm8k_accuracy'),
+        ('lmdeploy-api-test-maxlen-mid',
+         'IFEval_Prompt-level-strict-accuracy'),
+        ('lmdeploy-api-test-maxlen-mid', 'hle_llmjudge_accuracy'),
+        ('lmdeploy-api-test-maxlen-mid', 'mmlu_pro_math_accuracy'),
+        ('lmdeploy-api-test-maxlen-mid', 'mmlu_pro_other_accuracy'),
+        ('lmdeploy-api-test-chat-template', 'race-middle_accuracy'),
+        ('lmdeploy-api-test-chat-template', 'race-high_accuracy'),
+        ('lmdeploy-api-test-chat-template', 'gsm8k_accuracy'),
+        ('lmdeploy-api-test-chat-template',
+         'IFEval_Prompt-level-strict-accuracy'),
+        ('lmdeploy-api-test-chat-template', 'hle_llmjudge_accuracy'),
+        ('lmdeploy-api-test-chat-template', 'mmlu_pro_math_accuracy'),
+        ('lmdeploy-api-test-chat-template', 'mmlu_pro_other_accuracy')
+    ])
     def test_api(self, baseline_scores, result_scores, model, dataset):
         base_score = baseline_scores.get(model).get(dataset)
         result_score = result_scores.get(model).get(dataset)
@@ -276,11 +315,10 @@ class TestCmdCase:
         assert_score(model + '_batch', result_score, base_score, dataset)
 
     @pytest.mark.case5
-    @pytest.mark.parametrize(
-        'model, dataset',
-        [('Qwen3-0.6B_hf-vllm', 'race-middle_accuracy'),
-         ('Qwen3-0.6B_hf-vllm', 'race-high_accuracy'),
-         ('Qwen3-0.6B_hf-vllm', 'demo_gsm8k_accuracy')])
+    @pytest.mark.parametrize('model, dataset',
+                             [('Qwen3-0.6B_hf-vllm', 'race-middle_accuracy'),
+                              ('Qwen3-0.6B_hf-vllm', 'race-high_accuracy'),
+                              ('Qwen3-0.6B_hf-vllm', 'demo_gsm8k_accuracy')])
     def test_cmd_case5(self, baseline_scores, result_scores, model, dataset):
         base_score = baseline_scores.get(model).get(dataset)
         result_score = result_scores.get(model).get(dataset)
