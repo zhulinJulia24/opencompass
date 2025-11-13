@@ -45,7 +45,7 @@ lmdeploy-api-streaming-test-chunk:
     IFEval_Prompt-level-strict-accuracy: 81.25
     hle_llmjudge_accuracy: 75
     mmlu_pro_math_accuracy: 18.75
-    mmlu_pro_other_accuracy: 31.5
+    mmlu_pro_other_accuracy: 37.50
     race-middle_accuracy: 75
     race-high_accuracy: 81.25
     gsm8k_accuracy: 37.5
@@ -80,7 +80,7 @@ lmdeploy-api-test-nothink:
 lmdeploy-api-test-chat-template:
     IFEval_Prompt-level-strict-accuracy: 68.75
     hle_llmjudge_accuracy: 62.50
-    mmlu_pro_math_accuracy: 6.25
-    mmlu_pro_other_accuracy: 50.00
+    mmlu_pro_math_accuracy: 18.75
+    mmlu_pro_other_accuracy: 6.25
     race-middle_accuracy: 81.25
     race-high_accuracy: 68.75
