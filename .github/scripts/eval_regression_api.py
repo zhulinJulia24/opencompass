@@ -1,5 +1,6 @@
 from mmengine.config import read_base
 
+from opencompass.models import TurboMindModelwithChatTemplate
 from opencompass.models.openai_api import OpenAISDK
 from opencompass.models.openai_streaming import OpenAISDKStreaming
 from opencompass.utils.text_postprocessors import extract_non_reasoning_content
@@ -177,33 +178,25 @@ for d in datasets:
         d['eval_cfg']['evaluator']['llm_evaluator']['dataset_cfg'][
             'reader_cfg']['test_range'] = '[0:16]'
 
-judge_cfg = dict(
-    abbr='lmdeploy-api-test-nothink',
-    type=OpenAISDK,
-    key='EMPTY',
-    openai_api_base='http://localhost:23333/v1',
-    path='Qwen/Qwen3-8B',
-    tokenizer_path='Qwen/Qwen3-8B',
-    rpm_verbose=True,
-    meta_template=api_meta_template,
-    query_per_second=128,
-    max_out_len=8092,
-    max_seq_len=8092,
-    temperature=0.01,
-    batch_size=128,
-    retry=20,
-    extra_body={'chat_template_kwargs': {
-        'enable_thinking': False
-    }},
-    pred_postprocessor=dict(type=extract_non_reasoning_content),
-    mode='mid'),
+obj_judge_model = dict(type=TurboMindModelwithChatTemplate,
+                       abbr='qwen-3-8b-fullbench',
+                       path='Qwen/Qwen3-8B',
+                       engine_config=dict(session_len=46000,
+                                          max_batch_size=1,
+                                          tp=1),
+                       gen_config=dict(do_sample=False, enable_thinking=False),
+                       max_seq_len=46000,
+                       max_out_len=46000,
+                       batch_size=1,
+                       run_cfg=dict(num_gpus=1))
 
 for d in datasets:
     if 'judge_cfg' in d['eval_cfg']['evaluator']:
-        d['eval_cfg']['evaluator']['judge_cfg'] = judge_cfg
+        d['eval_cfg']['evaluator']['judge_cfg'] = obj_judge_model
     if 'llm_evaluator' in d['eval_cfg']['evaluator'] and 'judge_cfg' in d[
             'eval_cfg']['evaluator']['llm_evaluator']:
-        d['eval_cfg']['evaluator']['llm_evaluator']['judge_cfg'] = judge_cfg
+        d['eval_cfg']['evaluator']['llm_evaluator'][
+            'judge_cfg'] = obj_judge_model
 
 core_summary_groups = [
     {
