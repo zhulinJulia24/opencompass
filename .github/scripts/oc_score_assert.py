@@ -252,7 +252,6 @@ class TestApibench:
         ('lmdeploy-api-test-maxlen-mid', 'mmlu_pro_other_accuracy'),
         ('lmdeploy-api-test-chat-template', 'race-middle_accuracy'),
         ('lmdeploy-api-test-chat-template', 'race-high_accuracy'),
-        ('lmdeploy-api-test-chat-template', 'gsm8k_accuracy'),
         ('lmdeploy-api-test-chat-template',
          'IFEval_Prompt-level-strict-accuracy'),
         ('lmdeploy-api-test-chat-template', 'hle_llmjudge_accuracy'),

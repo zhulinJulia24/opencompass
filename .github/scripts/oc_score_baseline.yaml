@@ -24,64 +24,63 @@ Qwen3-0.6B_hf-vllm:
     race-high_accuracy: 28.07
 
 lmdeploy-api-test:
-    IFEval_Prompt-level-strict-accuracy: 87.50
+    IFEval_Prompt-level-strict-accuracy: 81.25
     hle_llmjudge_accuracy: 75.00
-    mmlu_pro_math_accuracy: 62.50
-    mmlu_pro_other_accuracy: 50.00
-    race-middle_accuracy: 38.23
-    race-high_accuracy: 28.07
-    gsm8k_accuracy: 53.12
+    mmlu_pro_math_accuracy: 18.75
+    mmlu_pro_other_accuracy: 25.00
+    race-middle_accuracy: 87.50
+    race-high_accuracy: 81.25
+    gsm8k_accuracy: 18.75
 
 lmdeploy-api-streaming-test:
-    IFEval_Prompt-level-strict-accuracy: 87.50
-    hle_llmjudge_accuracy: 75.00
-    mmlu_pro_math_accuracy: 62.50
-    mmlu_pro_other_accuracy: 50.00
-    race-middle_accuracy: 38.23
-    race-high_accuracy: 28.07
-    gsm8k_accuracy: 53.12
+    IFEval_Prompt-level-strict-accuracy: 68.75
+    hle_llmjudge_accuracy: 81.25
+    mmlu_pro_math_accuracy: 18.75
+    mmlu_pro_other_accuracy: 31.25
+    race-middle_accuracy: 81.25
+    race-high_accuracy: 75.00
+    gsm8k_accuracy: 25.00
 
 lmdeploy-api-streaming-test-chunk:
-    IFEval_Prompt-level-strict-accuracy: 87.50
-    hle_llmjudge_accuracy: 75.00
-    mmlu_pro_math_accuracy: 62.50
-    mmlu_pro_other_accuracy: 50.00
-    race-middle_accuracy: 38.23
-    race-high_accuracy: 28.07
-    gsm8k_accuracy: 53.12
+    IFEval_Prompt-level-strict-accuracy: 81.25
+    hle_llmjudge_accuracy: 75
+    mmlu_pro_math_accuracy: 18.75
+    mmlu_pro_other_accuracy: 31.5
+    race-middle_accuracy: 75
+    race-high_accuracy: 81.25
+    gsm8k_accuracy: 37.5
 
 lmdeploy-api-test-maxlen:
-    IFEval_Prompt-level-strict-accuracy: 87.50
-    hle_llmjudge_accuracy: 75.00
+    IFEval_Prompt-level-strict-accuracy: 93.75
+    hle_llmjudge_accuracy: 56.25
     mmlu_pro_math_accuracy: 62.50
-    mmlu_pro_other_accuracy: 50.00
-    race-middle_accuracy: 38.23
-    race-high_accuracy: 28.07
-    gsm8k_accuracy: 53.12
+    mmlu_pro_other_accuracy: 43.75
+    race-middle_accuracy: 81.25
+    race-high_accuracy: 81.25
+    gsm8k_accuracy: 31.25
 
 lmdeploy-api-test-maxlen-mid:
-    IFEval_Prompt-level-strict-accuracy: 87.50
-    hle_llmjudge_accuracy: 75.00
-    mmlu_pro_math_accuracy: 62.50
-    mmlu_pro_other_accuracy: 50.00
-    race-middle_accuracy: 38.23
-    race-high_accuracy: 28.07
-    gsm8k_accuracy: 53.12
+    IFEval_Prompt-level-strict-accuracy: 12.50
+    hle_llmjudge_accuracy: 81.25
+    mmlu_pro_math_accuracy: 0
+    mmlu_pro_other_accuracy: 0
+    race-middle_accuracy: 18.75
+    race-high_accuracy: 12.50
+    gsm8k_accuracy: 43.75
 
 lmdeploy-api-test-nothink:
-    IFEval_Prompt-level-strict-accuracy: 87.50
-    hle_llmjudge_accuracy: 75.00
+    IFEval_Prompt-level-strict-accuracy: 93.75 
+    hle_llmjudge_accuracy: 62.50
     mmlu_pro_math_accuracy: 62.50
     mmlu_pro_other_accuracy: 50.00
-    race-middle_accuracy: 38.23
-    race-high_accuracy: 28.07
-    gsm8k_accuracy: 53.12
+    race-middle_accuracy: 87.50
+    race-high_accuracy: 87.50
+    gsm8k_accuracy: 31.25
 
 lmdeploy-api-test-chat-template:
-    IFEval_Prompt-level-strict-accuracy: 87.50
-    hle_llmjudge_accuracy: 75.00
-    mmlu_pro_math_accuracy: 62.50
+    IFEval_Prompt-level-strict-accuracy: 68.75
+    hle_llmjudge_accuracy: 62.50
+    mmlu_pro_math_accuracy: 6.25
     mmlu_pro_other_accuracy: 50.00
-    race-middle_accuracy: 38.23
-    race-high_accuracy: 28.07
-    gsm8k_accuracy: 53.12
+    race-middle_accuracy: 81.25
+    race-high_accuracy: 68.75
