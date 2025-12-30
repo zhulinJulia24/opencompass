@@ -12,6 +12,8 @@ with read_base():
         datasets as CPsyExam_chatml_datasets  # noqa: F401, E501
     from opencompass.configs.chatml_datasets.MaScQA.MaScQA_gen import \
         datasets as MaScQA_chatml_datasets  # noqa: F401, E501
+    from opencompass.configs.chatml_datasets.UGD_hard.UGD_hard_gen import \
+        datasets as UGD_hard_chatml_datasets  # noqa: F401, E501
     from opencompass.configs.chatml_datasets.UGPhysics.UGPhysics_gen import \
         datasets as UGPhysics_chatml_datasets  # noqa: F401, E501
     from opencompass.configs.datasets.eese.eese_llm_judge_gen import \
