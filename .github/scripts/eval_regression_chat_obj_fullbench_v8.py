@@ -21,7 +21,7 @@ with read_base():
     from opencompass.configs.datasets.openswi.openswi_gen import \
         openswi_datasets  # noqa: F401, E501
     from opencompass.configs.datasets.SciReasoner.scireasoner_gen import \
-        scireasoner_gen  # noqa: F401, E501
+        scireasoner_mini_datasets  # noqa: F401, E501
 
     from ...rjob import eval, infer  # noqa: F401, E501
 
