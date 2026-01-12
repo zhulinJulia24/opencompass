@@ -128,6 +128,7 @@ jobs:
             pip install transformers==4.57.0 vllm==0.11.0 lmdeploy==0.10.1
             FLASH_ATTENTION_FORCE_BUILD=TRUE pip install /mnt/shared-storage-user/opencompass-shared/qa-llm-cicd/packages/flash_attn-2.8.3+cu12torch2.8cxx11abiFALSE-cp310-cp310-linux_x86_64.whl
             cp -r /mnt/shared-storage-user/opencompass-shared/qa-llm-cicd/packages/nltk_data /mnt/shared-storage-user/opencompass-shared/qa-llm-cicd/miniconda3/envs/regression_test
+            conda install -c bioconda infernal viennarna -y
       - name: conda env
         run: |
           . ${{env.CONDA_PATH}}/bin/activate
@@ -290,6 +291,7 @@ jobs:
             sleep 6
           done
       - name:  Assert result
+        if: matrix.regression_func == 'api'
         run: |
           . ${{env.CONDA_PATH}}/bin/activate
           conda activate ${{env.CONDA_ENV}}
@@ -297,4 +299,11 @@ jobs:
           rm regression_result_daily -f && ln -s ${{env.REPORT_ROOT}}/${{ github.run_id }}/${{matrix.regression_func}}/*/summary regression_result_daily
           python -m pytest -m ${{matrix.regression_func}} -s -v --color=yes .github/scripts/oc_score_assert.py
           python .github/scripts/compare_results.py compare_results ${{env.REPORT_ROOT}}/${{ github.run_id }}/${{matrix.regression_func}} ${{env.REPORT_ROOT}}/${{env.BASELINE_DIR}}/${{matrix.regression_func}}
-
+      - name:  Assert result - rollout
+        if: matrix.regression_func == 'api-rollout'
+        run: |
+          . ${{env.CONDA_PATH}}/bin/activate
+          conda activate ${{env.CONDA_ENV}}
+          conda info --envs
+          rm regression_result_daily -f && ln -s ${{env.REPORT_ROOT}}/${{ github.run_id }}/${{matrix.regression_func}}/*/summary regression_result_daily
+          python .github/scripts/compare_results.py compare_results ${{env.REPORT_ROOT}}/${{ github.run_id }}/${{matrix.regression_func}} ${{env.REPORT_ROOT}}/${{env.BASELINE_DIR}}/${{matrix.regression_func}}
