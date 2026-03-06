@@ -82,16 +82,14 @@ Qwen3_0_6B_FP8_COMBINED = dict(type=HuggingFacewithChatTemplate,
                                    temperature=0.1,
                                    top_p=0.5,
                                    repetition_penalty=0.000001,
-                                   random_seed=42,
                                    max_new_tokens=128,
-                                   skip_special_tokens=True,
                                ),
                                max_seq_len=4096,
                                batch_size=1,
                                run_cfg=dict(num_gpus=1))
 
 Qwen3_0_6B_FP8_TOKENIZER_ONLY = dict(type=HuggingFacewithChatTemplate,
-                                     abbr='hf-qwen3-0_6b-fp8-tokenizer-only',
+                                     abbr='hf-qwen3-0_6b-fp8-temp0',
                                      path='Qwen/Qwen3-0.6B-FP8',
                                      generation_kwargs=dict(temperature=0.0,
                                                             top_k=1),
@@ -112,12 +110,8 @@ Qwen3_0_6B_Base_MID = dict(type=HuggingFacewithChatTemplate,
                            run_cfg=dict(num_gpus=1))
 
 models = [
-    Qwen3_0_6B_FP8,
-    Qwen3_0_6B_FP8_TEMP0,
-    Qwen3_0_6B_FP8_STOP_WORDS,
-    Qwen3_0_6B_FP8_NEW_TOKENS,
-    Qwen3_0_6B_FP8_MAX_SEQ_LEN,
-    Qwen3_0_6B_FP8_TEMPLATE,
-    Qwen3_0_6B_FP8_COMBINED,
-    Qwen3_0_6B_FP8_TOKENIZER_ONLY,
+    Qwen3_0_6B_FP8, Qwen3_0_6B_FP8_TEMP0, Qwen3_0_6B_FP8_STOP_WORDS,
+    Qwen3_0_6B_FP8_NEW_TOKENS, Qwen3_0_6B_FP8_MAX_SEQ_LEN,
+    Qwen3_0_6B_FP8_TEMPLATE, Qwen3_0_6B_FP8_COMBINED,
+    Qwen3_0_6B_FP8_TOKENIZER_ONLY, Qwen3_0_6B_Base_MID
 ]
