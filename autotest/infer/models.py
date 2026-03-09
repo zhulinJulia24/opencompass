@@ -26,7 +26,7 @@ models = [
         query_per_second=128,
         temperature=0,
         batch_size=128,
-        mod='mid',
+        mode='mid',
         retry=20,
         pred_postprocessor=dict(type=extract_non_reasoning_content),
     )
