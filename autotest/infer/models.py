@@ -22,6 +22,7 @@ models = [
         tokenizer_path=TOKENIZER_PATH,
         rpm_verbose=True,
         meta_template=api_meta_template,
+        max_seq_len=4096,
         query_per_second=128,
         temperature=0,
         batch_size=128,
