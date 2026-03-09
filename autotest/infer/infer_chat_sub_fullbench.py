@@ -30,10 +30,14 @@ with read_base():
 
 models = models
 
-datasets = sum((v for k, v in locals().items() if k.endswith('_datasets')
-                and 'mtbench101' not in k and 'wildbench' not in k), [])
-datasets += mtbench101_datasets  # noqa: F401, E501
-datasets += wildbench_datasets  # noqa: F401, E501
+datasets = [
+    v[0] for k, v in locals().items()
+    if k.endswith('_datasets') and 'mtbench101' not in k
+    and 'wildbench' not in k and isinstance(v, list) and len(v) > 0
+]
+
+datasets.append(mtbench101_datasets[0])  # noqa: F401, E501
+datasets.append(wildbench_datasets[0])  # noqa: F401, E501
 
 api_meta_template = dict(
     round=[

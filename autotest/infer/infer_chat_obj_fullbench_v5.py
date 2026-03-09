@@ -129,13 +129,13 @@ GaokaoBench_datasets = [
     or '2010-2022_Math_II_Fill-in-the-Blank' in x['abbr']
 ]
 
-datasets = sum(
-    (v for k, v in locals().items() if k.endswith('_datasets')
-     and 'scicode' not in k.lower() and 'teval' not in k and 'human' not in k),
-    [],
-)
+datasets = [
+    v[0] for k, v in locals().items()
+    if k.endswith('_datasets') and 'scicode' not in k.lower() and 'teval'
+    not in k and 'human' not in k and isinstance(v, list) and len(v) > 0
+]
 datasets += humaneval_datasets
-# datasets += SciCode_datasets
+datasets += SciCode_datasets
 
 musr_summary_groups = musr_summarizer['summary_groups']
 summary_groups = sum(

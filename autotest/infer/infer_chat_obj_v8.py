@@ -22,7 +22,10 @@ with read_base():
 
 models = models
 
-datasets = sum((v for k, v in locals().items() if k.endswith('_datasets')), [])
+datasets = [
+    v[0] for k, v in locals().items()
+    if k.endswith('_datasets') and isinstance(v, list) and len(v) > 0
+]
 
 for d in datasets:
     if 'reader_cfg' in d:
