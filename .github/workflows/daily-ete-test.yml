@@ -23,8 +23,6 @@ on:
         description: 'baseline result'
         type: string
         default: "0.5.0-baseline"
-  schedule:
-    - cron:  '15 14 * * 2'
 
 env:
   HF_DATASETS_OFFLINE: 1
