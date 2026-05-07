@@ -251,4 +251,4 @@ class TurboMindModel(BaseModel):
         return pipeline(model_path,
                         backend_config=backend_config,
                         log_level='INFO',
-                        max_log_len=10)
+                        max_log_len=10, trust_remote_code=True)
